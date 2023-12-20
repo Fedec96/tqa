@@ -1,0 +1,76 @@
+{
+  "name": "tqa",
+  "version": "0.7.3",
+  "description": "A strongly typed hooks library based on TanStack's React Query & Axios to perform common CRUD operations for dead simple RESTful HTTP requests",
+  "scripts": {
+    "lint": "eslint src",
+    "build": "rm -rf dist && tsc",
+    "setup": "rm -rf dist && rm -rf node_modules && npm i"
+  },
+  "author": {
+    "email": "fedec96@gmail.com",
+    "name": "Federico Cappelletti",
+    "url": "https://github.com/users/Fedec96/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fedec96/tqa.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Fedec96/tqa/issues"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts",
+      "default": "./dist/types/index.js"
+    },
+    "./hooks/crud": {
+      "types": "./dist/hooks/crud/index.d.ts",
+      "default": "./dist/hooks/crud/index.js"
+    },
+    "./hooks/pagination": {
+      "types": "./dist/hooks/pagination/index.d.ts",
+      "default": "./dist/hooks/pagination/index.js"
+    },
+    "./hooks/pagination/alt": {
+      "types": "./dist/hooks/pagination/alt/index.d.ts",
+      "default": "./dist/hooks/pagination/alt/index.js"
+    }
+  },
+  "license": "MIT",
+  "keywords": [
+    "axios",
+    "react-query",
+    "tanstack-query",
+    "crud",
+    "react-hooks",
+    "react",
+    "hooks",
+    "nextjs",
+    "typescript"
+  ],
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.14.1",
+    "axios": "^1.6.2",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "^5"
+  }
+}

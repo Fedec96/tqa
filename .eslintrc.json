@@ -1,0 +1,16 @@
+{
+  "env": { "browser": true },
+  "extends": [
+    "plugin:@typescript-eslint/recommended-type-checked",
+    "plugin:@typescript-eslint/stylistic",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended"
+  ],
+  "parserOptions": { "project": true },
+  "settings": { "react": { "version": "detect" } },
+  "rules": {
+    "@typescript-eslint/no-floating-promises": "error",
+    "@typescript-eslint/no-unsafe-assignment": "warn",
+    "react/react-in-jsx-scope": "off"
+  }
+}

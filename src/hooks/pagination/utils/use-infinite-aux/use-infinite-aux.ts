@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 
-import { resolvePath } from "../../../../utils/misc/misc";
-
 import type { InfiniteData } from "@tanstack/react-query";
 
 import type {
@@ -32,17 +30,14 @@ export const useInfiniteAux = <TResponse>(
     const lastResponse = data.pages[data.pages.length - 1].response;
 
     // Check if "total" is a number
-    const totalLookupPath = (
+    const totalLookup =
       typeof totalLookupCb.current === "function"
         ? totalLookupCb.current(lastResponse)
-        : totalLookupCb.current
-    ) as string;
+        : totalLookupCb.current;
 
-    const totalLookup = resolvePath(lastResponse, totalLookupPath);
+    let totalRecords = totalLookup;
 
-    let totalRecords;
-
-    if (typeof totalLookup !== "number") {
+    if (typeof totalRecords !== "number") {
       totalRecords = Number(totalLookup);
 
       if (isNaN(totalRecords)) {
@@ -50,25 +45,20 @@ export const useInfiniteAux = <TResponse>(
           '"total" lookup leads to no "number" or numeric string'
         );
       }
-    } else {
-      totalRecords = totalLookup;
     }
 
     // Check if "results" is an array
-    const resultsLookupPath = (
+    const resultsLookupPath =
       typeof resultsLookupCb.current === "function"
         ? resultsLookupCb.current(lastResponse)
-        : resultsLookupCb.current
-    ) as string;
+        : resultsLookupCb.current;
 
-    const resultsLookup = resolvePath(lastResponse, resultsLookupPath);
-
-    if (!Array.isArray(resultsLookup)) {
+    if (!Array.isArray(lastResponse[resultsLookupPath])) {
       throw new Error('"results" lookup leads to no "Array"');
     }
 
     for (const { response } of data.pages) {
-      const results = resolvePath(response, resultsLookupPath);
+      const results = response[resultsLookupPath];
       totalFetched += (results as unknown[]).length;
     }
 

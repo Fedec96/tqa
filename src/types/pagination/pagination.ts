@@ -1,11 +1,10 @@
 import type { UseInfiniteQueryOptions } from "@tanstack/react-query";
+import type { RequireAllOrNone, KeysOfUnion } from "type-fest";
 
 import type {
   DatalessAxiosRequestConfig,
   AnylessAxiosRequestConfig,
 } from "../axios/axios";
-
-import type { RequireAllOrNone, KeysOf } from "../misc/misc";
 
 export type Limit = number;
 export type Offset = number;
@@ -93,7 +92,7 @@ type LookupCallback<TResponse, Result> = (lastPage: TResponse) => Result;
 
 type Lookup<TResponse> =
   | keyof TResponse
-  | LookupCallback<TResponse, KeysOf<TResponse>>;
+  | LookupCallback<TResponse, KeysOfUnion<TResponse>>;
 
 export interface InfiniteConfig<TResponse> {
   lookup: {

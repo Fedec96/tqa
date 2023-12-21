@@ -1,3 +1,5 @@
+import type { PartialDeep } from "type-fest";
+
 import type {
   AxiosInstance,
   AxiosRequestConfig,
@@ -5,13 +7,11 @@ import type {
   RawAxiosResponseHeaders,
 } from "axios";
 
-import type { DeepPartial } from "../misc/misc";
-
 type Params = Record<string, unknown>;
 
 export interface AnylessAxiosRequestConfig<TResponse, TParams>
   extends AxiosRequestConfig<TResponse> {
-  params?: DeepPartial<TParams & Params>;
+  params?: PartialDeep<TParams & Params>;
 }
 
 export type DatalessAxiosRequestConfig<TParams> = Omit<

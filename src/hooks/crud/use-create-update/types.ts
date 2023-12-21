@@ -1,8 +1,8 @@
 import type { UseMutationResult } from "@tanstack/react-query";
 import type { AxiosError, Method as BaseMethod } from "axios";
+import type { PartialDeep } from "type-fest";
 
 import type {
-  DeepPartial,
   RichResponse,
   FlexibleConsumerConfig,
   FunctionlessUseMutationOptions,
@@ -25,7 +25,7 @@ type MethodGuard<TRequest extends ActiveRequest> = TRequest extends "create"
 export type PayloadGuard<
   TRequest extends ActiveRequest,
   TPayload
-> = TRequest extends "partialUpdate" ? DeepPartial<TPayload> : TPayload;
+> = TRequest extends "partialUpdate" ? PartialDeep<TPayload> : TPayload;
 
 export interface UseCreateUpdateOptions<
   TRequest extends ActiveRequest,

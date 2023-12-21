@@ -1,5 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 
+import { resolvePath } from "../../../../utils/misc/misc";
+
 import type { InfiniteData } from "@tanstack/react-query";
 
 import type {
@@ -30,41 +32,44 @@ export const useInfiniteAux = <TResponse>(
     const lastResponse = data.pages[data.pages.length - 1].response;
 
     // Check if "total" is a number
-    const totalLookup =
+    const totalLookupPath = (
       typeof totalLookupCb.current === "function"
         ? totalLookupCb.current(lastResponse)
-        : totalLookupCb.current;
+        : totalLookupCb.current
+    ) as string;
+
+    const totalLookup = resolvePath(lastResponse, totalLookupPath);
 
     let totalRecords;
 
     if (typeof totalLookup !== "number") {
-      totalRecords = Number(lastResponse[totalLookup]);
+      totalRecords = Number(totalLookup);
 
       if (isNaN(totalRecords)) {
-        throw new Error('"total" lookup leads to no "number"');
+        throw new Error(
+          '"total" lookup leads to no "number" or numeric string'
+        );
       }
     } else {
       totalRecords = totalLookup;
     }
 
     // Check if "results" is an array
-    const resultsLookup =
+    const resultsLookupPath = (
       typeof resultsLookupCb.current === "function"
         ? resultsLookupCb.current(lastResponse)
-        : resultsLookupCb.current;
+        : resultsLookupCb.current
+    ) as string;
 
-    const resultsValue = lastResponse[resultsLookup];
+    const resultsLookup = resolvePath(lastResponse, resultsLookupPath);
 
-    if (!Array.isArray(resultsValue)) {
+    if (!Array.isArray(resultsLookup)) {
       throw new Error('"results" lookup leads to no "Array"');
     }
 
     for (const { response } of data.pages) {
-      const results = response[resultsLookup];
-
-      if (Array.isArray(results)) {
-        totalFetched += results.length;
-      }
+      const results = resolvePath(response, resultsLookupPath);
+      totalFetched += (results as unknown[]).length;
     }
 
     setTotalOutput({ records: totalRecords, fetched: totalFetched });

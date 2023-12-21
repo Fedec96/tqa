@@ -1,6 +1,8 @@
 import type { UseInfiniteQueryOptions } from "@tanstack/react-query";
 import type { RequireAllOrNone, KeysOfUnion } from "type-fest";
 
+import type { KeyChain } from "../misc/misc";
+
 import type {
   DatalessAxiosRequestConfig,
   AnylessAxiosRequestConfig,
@@ -88,17 +90,14 @@ export interface DirectionalAttributes {
 }
 
 export type Total = number;
-type LookupCallback<TResponse, Result> = (lastPage: TResponse) => Result;
 
 type Lookup<TResponse> =
-  | keyof TResponse
-  | LookupCallback<TResponse, KeysOfUnion<TResponse>>;
+  | KeysOfUnion<TResponse>
+  | KeyChain<TResponse>
+  | ((lastPage: TResponse) => KeyChain<TResponse> | KeysOfUnion<TResponse>);
 
 export interface InfiniteConfig<TResponse> {
-  lookup: {
-    results: Lookup<TResponse>;
-    total: Lookup<TResponse> | LookupCallback<TResponse, Total>;
-  };
+  lookup: { results: Lookup<TResponse>; total: Lookup<TResponse> };
 }
 
 export interface InfiniteAttributes {

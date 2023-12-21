@@ -1,5 +1,7 @@
 import type { UseInfiniteQueryOptions } from "@tanstack/react-query";
-import type { RequireAllOrNone, KeysOfUnion } from "type-fest";
+import type { RequireAllOrNone } from "type-fest";
+
+import type { KeysOfUnion } from "../misc/misc";
 
 import type {
   DatalessAxiosRequestConfig,

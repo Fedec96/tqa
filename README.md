@@ -271,15 +271,15 @@ const infinite = useInfiniteRetrieve<PaginationResponse<TResponse>, TParams, TEr
 
 Additional configuration:
 
-| Field            | Type                                                       | Description                                                                                                                                                                                              |
-| ---------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| itemsPerPage     | number \| undefined                                        | The page size. If omitted, the default will be used                                                                                                                                                      |
-| limitParam       | string \| undefined                                        | The "limit" parameter name. If omitted, the default will be used                                                                                                                                         |
-| offsetParam      | string \| undefined                                        | The "offset" parameter name. If omitted, the default will be used                                                                                                                                        |
-| lookup.results   | Lookup\<TResponse\>                                        | The key of the response's field that represents the page's record(s). Must lead to an array. It can be a function for conditionally returning the key                                                    |
-| lookup.total     | Lookup\<TResponse\> \| LookupCallback\<TResponse, number\> | The key to the response's field that represents the total result(s). Must lead to a number or a string containing a number. It can be a function for conditionally returning the key or the value itself |
-| sendZeroOffset   | boolean \| undefined                                       | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default                                                                                                            |
-| initialPageParam | PageParam                                                  | The initial "limit" parameter's value. If omitted, the default will be used                                                                                                                              |
+| Field            | Type                                   | Description                                                                                   |
+| ---------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- |
+| itemsPerPage     | number \| undefined                    | The page size. If omitted, the default will be used                                           |
+| limitParam       | string \| undefined                    | The "limit" parameter name. If omitted, the default will be used                              |
+| offsetParam      | string \| undefined                    | The "offset" parameter name. If omitted, the default will be used                             |
+| lookup.results   | LookupCallback\<TResponse, unknown[]\> | Retrieves every page's record(s)                                                              |
+| lookup.total     | LookupCallback\<TResponse, number\>    | Returns the field that indicates how many total records are available                         |
+| sendZeroOffset   | boolean \| undefined                   | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default |
+| initialPageParam | PageParam                              | The initial "limit" parameter's value. If omitted, the default will be used                   |
 
 Along with what's returned by TanStack's React Query's `useInfiniteQuery` hook, provides additional fields:
 
@@ -308,8 +308,8 @@ export const useInfinitePagination = <
     ...config,
 
     lookup: {
-      results: "results",
-      total: "count",
+      results: ({ results }) => results,
+      total: ({ count }) => count,
     },
 
     reactQuery: {

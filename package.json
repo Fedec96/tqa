@@ -1,6 +1,6 @@
 {
   "name": "tqa",
-  "version": "0.7.9",
+  "version": "0.8.0",
   "description": "A strongly typed hooks library based on TanStack's React Query & Axios to perform common CRUD operations for dead simple RESTful HTTP requests",
   "scripts": {
     "lint": "eslint src",

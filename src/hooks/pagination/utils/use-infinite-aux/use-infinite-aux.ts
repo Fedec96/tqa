@@ -18,48 +18,23 @@ export const useInfiniteAux = <TResponse>(
     { records: 0, fetched: 0 }
   );
 
-  const resultsLookupCb = useRef(results);
-  const totalLookupCb = useRef(total);
+  const resultsLookup = useRef(results);
+  const totalLookup = useRef(total);
 
   useEffect(() => {
     if (!data?.pages) {
       return;
     }
 
+    let totalRecords = 0;
     let totalFetched = 0;
-    const lastResponse = data.pages[data.pages.length - 1].response;
-
-    // Check if "total" is a number
-    const totalLookup =
-      typeof totalLookupCb.current === "function"
-        ? totalLookupCb.current(lastResponse)
-        : totalLookupCb.current;
-
-    let totalRecords = totalLookup;
-
-    if (typeof totalRecords !== "number") {
-      totalRecords = Number(totalLookup);
-
-      if (isNaN(totalRecords)) {
-        throw new Error(
-          '"total" lookup leads to no "number" or numeric string'
-        );
-      }
-    }
-
-    // Check if "results" is an array
-    const resultsLookupPath =
-      typeof resultsLookupCb.current === "function"
-        ? resultsLookupCb.current(lastResponse)
-        : resultsLookupCb.current;
-
-    if (!Array.isArray(lastResponse[resultsLookupPath])) {
-      throw new Error('"results" lookup leads to no "Array"');
-    }
 
     for (const { response } of data.pages) {
-      const results = response[resultsLookupPath];
-      totalFetched += (results as unknown[]).length;
+      totalFetched += resultsLookup.current(response).length;
+
+      if (!totalRecords) {
+        totalRecords = totalLookup.current(response);
+      }
     }
 
     setTotalOutput({ records: totalRecords, fetched: totalFetched });

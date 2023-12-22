@@ -96,6 +96,8 @@ export const useDirectionalAux = <TResponse>(
 
     const args: Parameters<typeof getPreviousOffsetCallback.current> = [
       data.response,
+      limit,
+      offset,
       hasPreviousPage,
       hasNextPage,
     ];
@@ -118,6 +120,8 @@ export const useDirectionalAux = <TResponse>(
     hasPreviousPage,
     isFetching,
     setOffset,
+    limit,
+    offset,
   ]);
 
   return {

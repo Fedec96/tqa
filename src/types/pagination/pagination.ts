@@ -35,6 +35,8 @@ export interface AltPaginatorConfig<TPayload, TParams>
 
 type OffsetCalculator<TResponse> = (
   response: TResponse,
+  currentLimit: Limit,
+  currentOffset: Offset,
   hasPreviousPage: boolean,
   hasNextPage: boolean
 ) => PageParam;

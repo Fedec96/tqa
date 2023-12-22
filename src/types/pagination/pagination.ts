@@ -39,6 +39,12 @@ type OffsetCalculator<TResponse> = (
   hasNextPage: boolean
 ) => PageParam;
 
+type PageDeterminator<TResponse> = (
+  response: TResponse,
+  currentLimit: Limit,
+  currentOffset: Offset
+) => boolean;
+
 export interface Interval {
   from: number;
   to: number;
@@ -70,8 +76,8 @@ export interface OffsetConfig<TResponse> {
 }
 
 export interface DirectionalControls<TResponse> {
-  hasPreviousPage: (response: TResponse) => boolean;
-  hasNextPage: (response: TResponse) => boolean;
+  hasPreviousPage: PageDeterminator<TResponse>;
+  hasNextPage: PageDeterminator<TResponse>;
 }
 
 export type DirectionalFactoryKeys<TResponse> =

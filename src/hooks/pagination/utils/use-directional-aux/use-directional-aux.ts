@@ -53,9 +53,12 @@ export const useDirectionalAux = <TResponse>(
       return;
     }
 
-    setHasPreviousPage(hasPreviousPageCallback.current(data.response));
-    setHasNextPage(hasNextPageCallback.current(data.response));
-  }, [data?.response]);
+    setHasPreviousPage(
+      hasPreviousPageCallback.current(data.response, limit, offset)
+    );
+
+    setHasNextPage(hasNextPageCallback.current(data.response, limit, offset));
+  }, [data?.response, limit, offset]);
 
   useEffect(() => {
     if (

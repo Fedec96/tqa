@@ -359,8 +359,8 @@ Additional configuration:
 | offsetParam       | string \| undefined                                  | The "offset" parameter name. If omitted, the default will be used                                  |
 | sendZeroOffset    | boolean \| undefined                                 | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default      |
 | initialPageParam  | PageParam                                            | The initial "limit" parameter's value. If omitted, the default will be used                        |
-| hasPreviousPage   | (response: TResponse) => boolean                     | Determines whether there's a previous page                                                         |
-| hasNextPage       | (response: TResponse) => boolean                     | Determines whether there's a next page                                                             |
+| hasPreviousPage   | PageDeterminator\<TResponse\>                        | Determines whether there's a previous page                                                         |
+| hasNextPage       | PageDeterminator\<TResponse\>                        | Determines whether there's a next page                                                             |
 | getPreviousOffset | OffsetCalculator\<TResponse\>                        | Retrieves the previous offset, if available                                                        |
 | getNextOffset     | OffsetCalculator\<TResponse\>                        | Retrieves the next offset, if available                                                            |
 | getIntervalFrom   | IntervalCalculator\<TResponse, "from"\> \| undefined | Determines the currently viewed interval's "from" index. If provided, `getIntervalTo` is mandatory |

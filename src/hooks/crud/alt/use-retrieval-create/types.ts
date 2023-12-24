@@ -3,6 +3,7 @@ import type { AxiosError } from "axios";
 
 import type {
   RichResponse,
+  Methodless,
   FlexibleConsumerConfig,
   FunctionlessUseQueryOptions,
   AnylessAxiosRequestConfig,
@@ -15,7 +16,7 @@ export interface UseRetrievalCreateOptions<TResponse, TPayload, TParams, TError>
     AxiosError<TError, TPayload>
   >;
 
-  axios?: Omit<AnylessAxiosRequestConfig<TPayload, TParams>, "method">;
+  axios?: Methodless<AnylessAxiosRequestConfig<TPayload, TParams>>;
 }
 
 export type UseRetrievalCreateResult<TResponse, TPayload, TError> =

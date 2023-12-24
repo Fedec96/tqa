@@ -43,21 +43,25 @@ export const useInfiniteCreate = <
     queryKey: [...reactQuery.queryKey, limit],
 
     queryFn: ({ pageParam }) =>
-      rest.instance
-        .post<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
+      rest
+        .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
           String(url),
           {
-            ...(axios?.data as TPayload),
-            [limitParam || rest.paginator.limitParam]: limit,
+            ...axios,
+            method: "post",
 
-            ...(((sendZeroOffset &&
-              typeof pageParam === "number" &&
-              pageParam) ||
-              (!sendZeroOffset && pageParam)) && {
-              [offsetParam || rest.paginator.offsetParam]: pageParam,
-            }),
-          },
-          axios
+            data: {
+              ...(axios?.data as TPayload),
+              [limitParam || rest.paginator.limitParam]: limit,
+
+              ...(((sendZeroOffset &&
+                typeof pageParam === "number" &&
+                pageParam) ||
+                (!sendZeroOffset && pageParam)) && {
+                [offsetParam || rest.paginator.offsetParam]: pageParam,
+              }),
+            },
+          }
         )
         .then(({ data: response, status, statusText, headers }) => ({
           response,

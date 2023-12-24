@@ -5,6 +5,7 @@ import type {
   FlexibleConsumerConfig,
   FunctionlessUseMutationOptions,
   RichResponse,
+  Methodless,
   DatalessAxiosRequestConfig,
 } from "../../../types";
 
@@ -16,7 +17,7 @@ export interface UseDestroyOptions<TResponse, TParams, TError>
     void
   >;
 
-  axios?: Omit<DatalessAxiosRequestConfig<TParams>, "method">;
+  axios?: Methodless<DatalessAxiosRequestConfig<TParams>>;
 }
 
 export type UseDestroyResult<TResponse, TError> = UseMutationResult<

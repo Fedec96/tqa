@@ -20,10 +20,10 @@ export const useDestroy = <
     ...reactQuery,
 
     mutationFn: () =>
-      rest.instance
-        .delete<TResponse, AxiosResponse<TResponse, void>, void>(
+      rest
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
           String(url),
-          axios
+          { ...axios, method: "delete" }
         )
         .then(({ data: response, status, statusText, headers }) => ({
           response,

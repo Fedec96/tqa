@@ -42,21 +42,26 @@ export const useInfiniteRetrieve = <
     queryKey: [...reactQuery.queryKey, limit],
 
     queryFn: ({ pageParam }) =>
-      rest.instance
-        .get<TResponse, AxiosResponse<TResponse, void>, void>(String(url), {
-          ...axios,
-          params: {
-            ...axios?.params,
-            [limitParam || rest.paginator.limitParam]: limit,
+      rest
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+          String(url),
+          {
+            ...axios,
+            method: "get",
 
-            ...(((sendZeroOffset &&
-              typeof pageParam === "number" &&
-              pageParam) ||
-              (!sendZeroOffset && pageParam)) && {
-              [offsetParam || rest.paginator.offsetParam]: pageParam,
-            }),
-          },
-        })
+            params: {
+              ...axios?.params,
+              [limitParam || rest.paginator.limitParam]: limit,
+
+              ...(((sendZeroOffset &&
+                typeof pageParam === "number" &&
+                pageParam) ||
+                (!sendZeroOffset && pageParam)) && {
+                [offsetParam || rest.paginator.offsetParam]: pageParam,
+              }),
+            },
+          }
+        )
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,

@@ -47,18 +47,22 @@ export const useDirectionalCreate = <
     queryKey: [...reactQuery.queryKey, limit, offset],
 
     queryFn: () =>
-      rest.instance
-        .post<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
+      rest
+        .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
           String(url),
           {
-            ...(axios?.data as TPayload),
-            [limitParam || rest.paginator.limitParam]: limit,
+            ...axios,
+            method: "post",
 
-            ...((sendZeroOffset || (!sendZeroOffset && offset)) && {
-              [offsetParam || rest.paginator.offsetParam]: offset,
-            }),
-          },
-          axios
+            data: {
+              ...(axios?.data as TPayload),
+              [limitParam || rest.paginator.limitParam]: limit,
+
+              ...((sendZeroOffset || (!sendZeroOffset && offset)) && {
+                [offsetParam || rest.paginator.offsetParam]: offset,
+              }),
+            },
+          }
         )
         .then(({ data: response, status, statusText, headers }) => ({
           response,

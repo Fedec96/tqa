@@ -37,3 +37,5 @@ export interface RichResponse<TResponse> {
   status: number;
   statusText: string;
 }
+
+export type Methodless<T> = Omit<T, "method">;

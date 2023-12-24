@@ -4,6 +4,7 @@ import type { PartialDeep } from "type-fest";
 
 import type {
   RichResponse,
+  Methodless,
   FlexibleConsumerConfig,
   FunctionlessUseMutationOptions,
   DatalessAxiosRequestConfig,
@@ -40,7 +41,7 @@ export interface UseCreateUpdateOptions<
     PayloadGuard<TRequest, TPayload>
   >;
 
-  axios: DatalessAxiosRequestConfig<TParams> & {
+  axios: Methodless<DatalessAxiosRequestConfig<TParams>> & {
     method: MethodGuard<TRequest>;
   };
 }

@@ -6,6 +6,7 @@ import type {
   FlexibleConsumerConfig,
   FunctionlessUseQueryOptions,
   DatalessAxiosRequestConfig,
+  Methodless,
 } from "../../../types";
 
 export type PassiveRequest = "retrieve" | "status";
@@ -26,7 +27,7 @@ export interface UseRetrieveOptions<
     AxiosError<TError, void>
   >;
 
-  axios: DatalessAxiosRequestConfig<TParams> & {
+  axios: Methodless<DatalessAxiosRequestConfig<TParams>> & {
     method: MethodGuard<TRequest>;
   };
 }

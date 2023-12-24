@@ -4,7 +4,8 @@ import type { RequireAllOrNone } from "type-fest";
 import type {
   DatalessAxiosRequestConfig,
   AnylessAxiosRequestConfig,
-} from "../axios/axios";
+  Methodless,
+} from "../../types";
 
 export type Limit = number;
 export type Offset = number;
@@ -24,13 +25,13 @@ interface CommonPaginatorConfig {
 export interface BasePaginatorConfig<TParams>
   extends Partial<PaginationParams>,
     CommonPaginatorConfig {
-  axios?: Omit<DatalessAxiosRequestConfig<TParams>, "method">;
+  axios?: Methodless<DatalessAxiosRequestConfig<TParams>>;
 }
 
 export interface AltPaginatorConfig<TPayload, TParams>
   extends Omit<BasePaginatorConfig<TParams>, "axios">,
     CommonPaginatorConfig {
-  axios?: Omit<AnylessAxiosRequestConfig<TPayload, TParams>, "method">;
+  axios?: Methodless<AnylessAxiosRequestConfig<TPayload, TParams>>;
 }
 
 type OffsetCalculator<TResponse> = (

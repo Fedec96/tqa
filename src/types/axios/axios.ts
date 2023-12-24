@@ -9,8 +9,8 @@ import type {
 
 type Params = Record<string, unknown>;
 
-export interface AnylessAxiosRequestConfig<TResponse, TParams>
-  extends AxiosRequestConfig<TResponse> {
+export interface AnylessAxiosRequestConfig<TPayload, TParams>
+  extends AxiosRequestConfig<TPayload> {
   params?: PartialDeep<TParams & Params>;
 }
 

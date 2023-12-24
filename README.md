@@ -16,6 +16,7 @@ A strongly typed hooks library based on TanStack's React Query & Axios to perfor
   - [Consumer](#consumer)
   - [CRUD](#crud)
     - [Retrieve, status](#retrieve-status)
+      - [Retrieve (POST)](#retrieve-post)
     - [Create, update, partial update](#create-update-partial-update)
     - [Destroy](#destroy)
 - [Pagination](#pagination)
@@ -177,6 +178,16 @@ import { useRetrieve } from "tqa/hooks/crud";
 const query = useRetrieve<"retrieve" | "status", TResponse, TParams, TError>(url, config);
 ```
 
+##### Retrieve (POST)
+
+The `useRetrievalCreate` hook is an alternate version of `useRetrieve` built specifically for performing POST requests behaving as GETs. Everything works as it does for `useRetrieve` with the addition of the payload's generic type `TPayload` and no need to specify `TRequest`.
+
+```ts
+import { useRetrievalCreate } from "tqa/hooks/crud/alt";
+
+const query = useRetrievalCreate<TResponse, TPayload, TParams, TError>(url, config);
+```
+
 #### Create, update, partial update
 
 The `useCreateUpdate` hook can be used to perform POST, PUT and PATCH requests.
@@ -264,7 +275,7 @@ interface PaginationResponse<T = unknown> {
 The `useInfiniteRetrieve` hook is built for cumulative pagination ("load more" strategy).
 
 ```ts
-import { useInfiniteRetrieve } from "tqa/pagination";
+import { useInfiniteRetrieve } from "tqa/hooks/pagination";
 
 const infinite = useInfiniteRetrieve<PaginationResponse<TResponse>, TParams, TError>(url, config);
 ```
@@ -326,7 +337,7 @@ The `useInfiniteCreate` hook is an alternate version of `useInfiniteRetrieve` bu
 A custom wrapper can be built with the `UseInfiniteCreateFactory` type, which takes `TPayload` in addition.
 
 ```ts
-import { useInfiniteCreate, type UseInfiniteCreateFactory, type UseInfiniteCreateResult } from "tqa/pagination/alt";
+import { useInfiniteCreate, type UseInfiniteCreateFactory, type UseInfiniteCreateResult } from "tqa/hooks/pagination/alt";
 
 export const useInfinitePagination = <
   TResponse = unknown,
@@ -345,7 +356,7 @@ export const useInfinitePagination = <
 The `useDirectionalRetrieve` hook is built for directional pagination ("previous"/"next" strategy).
 
 ```ts
-import { useDirectionalRetrieve } from "tqa/pagination";
+import { useDirectionalRetrieve } from "tqa/hooks/pagination";
 
 const query = useDirectionalRetrieve<PaginationResponse<TResponse>, TParams, TError>(url, config);
 ```

@@ -1,6 +1,6 @@
 {
   "name": "tqa",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "description": "A strongly typed hooks library based on TanStack's React Query & Axios to perform common CRUD operations for dead simple RESTful HTTP requests",
   "scripts": {
     "lint": "eslint src",
@@ -36,6 +36,10 @@
       "types": "./dist/hooks/crud/index.d.ts",
       "default": "./dist/hooks/crud/index.js"
     },
+    "./hooks/crud/alt": {
+      "types": "./dist/hooks/crud/alt/index.d.ts",
+      "default": "./dist/hooks/crud/alt/index.js"
+    },
     "./hooks/pagination": {
       "types": "./dist/hooks/pagination/index.d.ts",
       "default": "./dist/hooks/pagination/index.js"
@@ -58,7 +62,7 @@
     "typescript"
   ],
   "peerDependencies": {
-    "@tanstack/react-query": "^5.14.2",
+    "@tanstack/react-query": "^5",
     "axios": "^1.6.2",
     "react": "^18",
     "react-dom": "^18"

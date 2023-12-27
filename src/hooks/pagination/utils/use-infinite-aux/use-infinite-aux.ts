@@ -1,14 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 
 import type { InfiniteData } from "@tanstack/react-query";
-
-import type {
-  RichResponse,
-  InfiniteConfig,
-  InfiniteAttributes,
-} from "../../../../types";
-
-export type UseInfiniteAuxResult = InfiniteAttributes;
+import type { RichResponse, InfiniteConfig } from "../../../../types";
+import { UseInfiniteAuxResult } from "./types";
 
 export const useInfiniteAux = <TResponse>(
   data: InfiniteData<RichResponse<TResponse>, unknown> | undefined,

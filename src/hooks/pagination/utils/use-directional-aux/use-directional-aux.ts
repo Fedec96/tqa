@@ -8,7 +8,6 @@ import {
 } from "react";
 
 import type {
-  DirectionalAttributes,
   DirectionalControls,
   RichResponse,
   ConfigurableInterval,
@@ -18,7 +17,7 @@ import type {
   Limit,
 } from "../../../../types";
 
-export type UseDirectionalAuxResult = DirectionalAttributes;
+import type { UseDirectionalAuxResult } from "./types";
 
 export const useDirectionalAux = <TResponse>(
   data: RichResponse<TResponse> | undefined,

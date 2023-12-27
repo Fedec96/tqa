@@ -1,7 +1,5 @@
-import { useState, type Dispatch, type SetStateAction } from "react";
+import { useState } from "react";
 import { useFlexibleConsumer } from "../../../utils";
-
-import type { Consumer } from "../../../..";
 
 import type {
   Limit,
@@ -10,12 +8,7 @@ import type {
   PageParam,
 } from "../../../../types";
 
-export interface UseDirectionalSetupResult {
-  consumer: Consumer;
-  limit: Limit;
-  offset: Offset;
-  setOffset: Dispatch<SetStateAction<Offset>>;
-}
+import type { UseDirectionalSetupResult } from "./types";
 
 export const useDirectionalSetup = (
   consumerConfig: FlexibleConsumerConfig["consumer"],

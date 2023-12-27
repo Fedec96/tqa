@@ -55,8 +55,9 @@ interface ProvidersProps {
   children?: ReactNode;
 }
 
+const http = axios.create();
 const queryClient = new QueryClient();
-const consumer = new Consumer(axios.create());
+const consumer = new Consumer(http);
 
 export default function Providers({ children }: ProvidersProps) {
   return (
@@ -325,7 +326,7 @@ export const useInfinitePagination = <
 
     reactQuery: {
       ...config.reactQuery,
-      getNextPageParam: ({ response: { next } }) => next ?? undefined,
+      getNextPageParam: ({ response: { next } }) => next || undefined,
     },
   });
 ```

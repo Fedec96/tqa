@@ -26,13 +26,15 @@ export const useInfiniteAux = <TResponse>(
       return;
     }
 
+    let totalComputed = false;
     let totalRecords = 0;
     let totalFetched = 0;
 
     for (const { response } of data.pages) {
       totalFetched += resultsLookup.current(response).length;
 
-      if (!totalRecords) {
+      if (!totalComputed) {
+        totalComputed = true;
         totalRecords = totalLookup.current(response);
       }
     }

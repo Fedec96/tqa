@@ -21,6 +21,10 @@ export class Consumer {
     this.instance = instance;
     this.paginator = { ...defaultPaginationParams, ...paginator };
   }
+
+  getConfig() {
+    return { paginator: this.paginator };
+  }
 }
 
 interface ConsumerProviderProps {

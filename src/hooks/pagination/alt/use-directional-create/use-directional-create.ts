@@ -40,7 +40,8 @@ export const useDirectionalCreate = <
     limit,
     offset,
     setOffset,
-  } = useDirectionalSetup(consumerConfig, itemsPerPage, initialPageParam);
+    safeUrl,
+  } = useDirectionalSetup(url, consumerConfig, itemsPerPage, initialPageParam);
 
   const query = useQuery({
     ...reactQuery,
@@ -49,7 +50,7 @@ export const useDirectionalCreate = <
     queryFn: () =>
       rest
         .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
-          String(url),
+          safeUrl,
           {
             ...axios,
             method: "post",

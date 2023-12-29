@@ -33,7 +33,8 @@ export const useInfiniteRetrieve = <
     consumer: rest,
     limit,
     initialPageParam,
-  } = useInfiniteSetup(consumerConfig, itemsPerPage, initialPageParamCfg);
+    safeUrl,
+  } = useInfiniteSetup(url, consumerConfig, itemsPerPage, initialPageParamCfg);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -43,25 +44,22 @@ export const useInfiniteRetrieve = <
 
     queryFn: ({ pageParam }) =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
-          String(url),
-          {
-            ...axios,
-            method: "get",
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(safeUrl, {
+          ...axios,
+          method: "get",
 
-            params: {
-              ...axios?.params,
-              [limitParam || rest.paginator.limitParam]: limit,
+          params: {
+            ...axios?.params,
+            [limitParam || rest.paginator.limitParam]: limit,
 
-              ...(((sendZeroOffset &&
-                typeof pageParam === "number" &&
-                pageParam) ||
-                (!sendZeroOffset && pageParam)) && {
-                [offsetParam || rest.paginator.offsetParam]: pageParam,
-              }),
-            },
-          }
-        )
+            ...(((sendZeroOffset &&
+              typeof pageParam === "number" &&
+              pageParam) ||
+              (!sendZeroOffset && pageParam)) && {
+              [offsetParam || rest.paginator.offsetParam]: pageParam,
+            }),
+          },
+        })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,

@@ -34,7 +34,8 @@ export const useInfiniteCreate = <
     consumer: rest,
     limit,
     initialPageParam,
-  } = useInfiniteSetup(consumerConfig, itemsPerPage, initialPageParamCfg);
+    safeUrl,
+  } = useInfiniteSetup(url, consumerConfig, itemsPerPage, initialPageParamCfg);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -45,7 +46,7 @@ export const useInfiniteCreate = <
     queryFn: ({ pageParam }) =>
       rest
         .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
-          String(url),
+          safeUrl,
           {
             ...axios,
             method: "post",

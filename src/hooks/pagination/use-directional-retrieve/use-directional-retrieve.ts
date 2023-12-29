@@ -39,7 +39,8 @@ export const useDirectionalRetrieve = <
     limit,
     offset,
     setOffset,
-  } = useDirectionalSetup(consumerConfig, itemsPerPage, initialPageParam);
+    safeUrl,
+  } = useDirectionalSetup(url, consumerConfig, itemsPerPage, initialPageParam);
 
   const query = useQuery({
     ...reactQuery,
@@ -47,22 +48,19 @@ export const useDirectionalRetrieve = <
 
     queryFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
-          String(url),
-          {
-            ...axios,
-            method: "get",
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(safeUrl, {
+          ...axios,
+          method: "get",
 
-            params: {
-              ...axios?.params,
-              [limitParam || rest.paginator.limitParam]: limit,
+          params: {
+            ...axios?.params,
+            [limitParam || rest.paginator.limitParam]: limit,
 
-              ...((sendZeroOffset || (!sendZeroOffset && offset)) && {
-                [offsetParam || rest.paginator.offsetParam]: offset,
-              }),
-            },
-          }
-        )
+            ...((sendZeroOffset || (!sendZeroOffset && offset)) && {
+              [offsetParam || rest.paginator.offsetParam]: offset,
+            }),
+          },
+        })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,

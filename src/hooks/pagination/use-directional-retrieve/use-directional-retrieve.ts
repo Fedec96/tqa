@@ -24,7 +24,6 @@ export const useDirectionalRetrieve = <
     limitParam,
     offsetParam,
     initialPageParam,
-    consumer,
     hasPreviousPage,
     hasNextPage,
     getPreviousOffset,
@@ -32,6 +31,7 @@ export const useDirectionalRetrieve = <
     getIntervalFrom,
     getIntervalTo,
     sendZeroOffset,
+    ...consumerConfig
   } = config;
 
   const {
@@ -39,7 +39,7 @@ export const useDirectionalRetrieve = <
     limit,
     offset,
     setOffset,
-  } = useDirectionalSetup(consumer, itemsPerPage, initialPageParam);
+  } = useDirectionalSetup(consumerConfig, itemsPerPage, initialPageParam);
 
   const query = useQuery({
     ...reactQuery,

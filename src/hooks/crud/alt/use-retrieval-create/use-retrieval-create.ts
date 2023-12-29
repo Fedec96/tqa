@@ -18,8 +18,8 @@ export const useRetrievalCreate = <
   url: Endpoint,
   config: UseRetrievalCreateOptions<TResponse, TPayload, TParams, TError>
 ): UseRetrievalCreateResult<TResponse, TPayload, TError> => {
-  const { axios, reactQuery, consumer } = config;
-  const rest = useFlexibleConsumer(consumer);
+  const { axios, reactQuery, ...consumerConfig } = config;
+  const rest = useFlexibleConsumer(consumerConfig);
 
   return useQuery({
     ...reactQuery,

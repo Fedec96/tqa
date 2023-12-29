@@ -1,4 +1,5 @@
 import type { PartialDeep } from "type-fest";
+import type { ConsumerConfig } from "../..";
 
 import type {
   AxiosInstance,
@@ -19,6 +20,10 @@ export type DatalessAxiosRequestConfig<TParams> = Omit<
   "data"
 >;
 
+interface BaseConsumer {
+  options?: ConsumerConfig;
+}
+
 interface ExternalGenericConsumer {
   external: boolean;
 }
@@ -28,7 +33,7 @@ interface ExternalCustomConsumer {
 }
 
 export interface FlexibleConsumerConfig {
-  consumer?: ExternalGenericConsumer | ExternalCustomConsumer;
+  consumer?: (ExternalGenericConsumer | ExternalCustomConsumer) & BaseConsumer;
 }
 
 export interface RichResponse<TResponse> {

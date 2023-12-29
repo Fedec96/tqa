@@ -24,16 +24,16 @@ export const useInfiniteRetrieve = <
     limitParam,
     offsetParam,
     initialPageParam: initialPageParamCfg,
-    consumer,
     lookup,
     sendZeroOffset,
+    ...consumerConfig
   } = config;
 
   const {
     consumer: rest,
     limit,
     initialPageParam,
-  } = useInfiniteSetup(consumer, itemsPerPage, initialPageParamCfg);
+  } = useInfiniteSetup(consumerConfig, itemsPerPage, initialPageParamCfg);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,

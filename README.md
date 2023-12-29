@@ -140,7 +140,10 @@ In addition, every hook accepts an optional `consumer` configuration object for 
 ```ts
 const query = useRetrieve("/v1/thing", {
     /* ... */
-    consumer: { external: true },
+    consumer: {
+      external: true,
+      options: { /* ... */ },
+    },
   }
 );
 ```
@@ -152,7 +155,10 @@ const myConsumer = axios.create({ /* ... */ });
 
 const query = useRetrieve("/v1/thing", {
     /* ... */
-    consumer: { instance: myConsumer },
+    consumer: {
+      instance: myConsumer,
+      options: { /* ... */ },
+    },
   }
 );
 ```

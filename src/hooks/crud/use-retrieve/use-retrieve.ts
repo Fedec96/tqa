@@ -19,8 +19,8 @@ export const useRetrieve = <
   url: Endpoint,
   config: UseRetrieveOptions<TRequest, TResponse, TParams, TError>
 ): UseRetrieveResult<TResponse, TError> => {
-  const { axios, reactQuery, consumer } = config;
-  const rest = useFlexibleConsumer(consumer);
+  const { axios, reactQuery, ...consumerConfig } = config;
+  const rest = useFlexibleConsumer(consumerConfig);
 
   return useQuery({
     ...reactQuery,

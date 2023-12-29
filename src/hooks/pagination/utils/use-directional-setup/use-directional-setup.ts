@@ -11,7 +11,7 @@ import type {
 import type { UseDirectionalSetupResult } from "./types";
 
 export const useDirectionalSetup = (
-  consumerConfig: FlexibleConsumerConfig["consumer"],
+  consumerConfig: FlexibleConsumerConfig,
   itemsPerPage: Limit | undefined,
   initialPageParam: PageParam
 ): UseDirectionalSetupResult => {

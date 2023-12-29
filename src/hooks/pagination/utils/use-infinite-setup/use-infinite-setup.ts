@@ -10,7 +10,7 @@ import type {
 import { UseInfiniteSetupResult } from "./types";
 
 export const useInfiniteSetup = (
-  consumerConfig: FlexibleConsumerConfig["consumer"],
+  consumerConfig: FlexibleConsumerConfig,
   itemsPerPage: Limit | undefined,
   initialPageParam: PageParam | undefined
 ): UseInfiniteSetupResult => {

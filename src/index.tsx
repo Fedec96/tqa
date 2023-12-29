@@ -9,21 +9,23 @@ const defaultPaginationParams: Readonly<PaginationParams> = {
   offsetParam: "offset",
 };
 
-interface ConsumerConfig {
+export interface ConsumerConfig {
+  debug?: boolean;
   paginator?: Partial<PaginationParams>;
 }
 
 export class Consumer {
   readonly instance: AxiosInstance;
+  readonly debug: boolean;
   readonly paginator: Readonly<PaginationParams>;
 
-  constructor(instance: AxiosInstance, { paginator }: ConsumerConfig = {}) {
+  constructor(
+    instance: AxiosInstance,
+    { debug, paginator }: ConsumerConfig = {}
+  ) {
+    this.debug = debug || false;
     this.instance = instance;
     this.paginator = { ...defaultPaginationParams, ...paginator };
-  }
-
-  getConfig() {
-    return { paginator: this.paginator };
   }
 }
 

@@ -168,7 +168,7 @@ const query = useRetrieve("/v1/thing", {
 
 You can toggle a simple debugging mechanism that logs some hook-related information to the browser's console. This can be performed globally and/or set/overridden at hook level.
 
-Example with Next.js and App Router:
+Example with Next.js and App Router for global configuration:
 
 ```tsx
 const consumer = new Consumer(http, { debug: true });
@@ -182,7 +182,7 @@ export default function Providers({ children }: ProvidersProps) {
 }
 ```
 
-Example at hook level:
+Example at hook level for local configuration:
 
 ```ts
 const query = useRetrieve("/v1/info", {

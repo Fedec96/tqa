@@ -9,6 +9,8 @@ import type {
   UseRetrievalCreateResult,
 } from "./types";
 
+const HOOK_NAME = "useRetrievalCreate";
+
 export const useRetrievalCreate = <
   TResponse = unknown,
   TPayload = unknown,
@@ -20,7 +22,7 @@ export const useRetrievalCreate = <
 ): UseRetrievalCreateResult<TResponse, TPayload, TError> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(url);
+  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
 
   return useQuery({
     ...reactQuery,
@@ -39,3 +41,5 @@ export const useRetrievalCreate = <
         })),
   });
 };
+
+useRetrievalCreate.name = HOOK_NAME;

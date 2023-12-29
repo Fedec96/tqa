@@ -9,6 +9,8 @@ import type {
   UseInfiniteRetrieveResult,
 } from "./types";
 
+const HOOK_NAME = "useInfiniteRetrieve";
+
 export const useInfiniteRetrieve = <
   TResponse = unknown,
   TParams = unknown,
@@ -34,7 +36,14 @@ export const useInfiniteRetrieve = <
     limit,
     initialPageParam,
     safeUrl,
-  } = useInfiniteSetup(url, consumerConfig, itemsPerPage, initialPageParamCfg);
+  } = useInfiniteSetup(
+    HOOK_NAME,
+    url,
+    consumerConfig,
+    itemsPerPage,
+    initialPageParamCfg,
+    config
+  );
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -72,3 +81,5 @@ export const useInfiniteRetrieve = <
 
   return { ...infiniteQuery, ...aux };
 };
+
+useInfiniteRetrieve.name = HOOK_NAME;

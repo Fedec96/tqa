@@ -11,6 +11,8 @@ import type {
   UseCreateUpdateResult,
 } from "./types";
 
+const HOOK_NAME = "useCreateUpdate";
+
 export const useCreateUpdate = <
   TRequest extends ActiveRequest,
   TResponse = unknown,
@@ -23,7 +25,7 @@ export const useCreateUpdate = <
 ): UseCreateUpdateResult<TRequest, TResponse, TError, TPayload> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(url);
+  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
 
   return useMutation({
     ...reactQuery,
@@ -43,3 +45,5 @@ export const useCreateUpdate = <
         })),
   });
 };
+
+useCreateUpdate.name = HOOK_NAME;

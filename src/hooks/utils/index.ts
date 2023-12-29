@@ -6,3 +6,6 @@ export * from "./use-safe-url/types";
 
 export * from "./use-rest-setup/use-rest-setup";
 export * from "./use-rest-setup/types";
+
+export * from "./use-debug/use-debug";
+export * from "./use-debug/types";

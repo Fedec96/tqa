@@ -5,6 +5,8 @@ import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../types";
 import type { UseDestroyOptions, UseDestroyResult } from "./types";
 
+const HOOK_NAME = "useDestroy";
+
 export const useDestroy = <
   TResponse = unknown,
   TParams = unknown,
@@ -15,7 +17,7 @@ export const useDestroy = <
 ): UseDestroyResult<TResponse, TError> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(url);
+  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
 
   return useMutation({
     ...reactQuery,
@@ -34,3 +36,5 @@ export const useDestroy = <
         })),
   });
 };
+
+useDestroy.name = HOOK_NAME;

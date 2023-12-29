@@ -9,6 +9,8 @@ import {
   UseDirectionalRetrieveResult,
 } from "./types";
 
+const HOOK_NAME = "useDirectionalRetrieve";
+
 export const useDirectionalRetrieve = <
   TResponse = unknown,
   TParams = unknown,
@@ -40,7 +42,14 @@ export const useDirectionalRetrieve = <
     offset,
     setOffset,
     safeUrl,
-  } = useDirectionalSetup(url, consumerConfig, itemsPerPage, initialPageParam);
+  } = useDirectionalSetup(
+    HOOK_NAME,
+    url,
+    consumerConfig,
+    itemsPerPage,
+    initialPageParam,
+    config
+  );
 
   const query = useQuery({
     ...reactQuery,
@@ -85,3 +94,5 @@ export const useDirectionalRetrieve = <
 
   return { ...query, ...aux };
 };
+
+useDirectionalRetrieve.name = HOOK_NAME;

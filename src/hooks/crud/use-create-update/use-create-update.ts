@@ -45,5 +45,3 @@ export const useCreateUpdate = <
         })),
   });
 };
-
-useCreateUpdate.name = HOOK_NAME;

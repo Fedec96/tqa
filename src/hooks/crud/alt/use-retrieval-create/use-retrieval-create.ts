@@ -41,5 +41,3 @@ export const useRetrievalCreate = <
         })),
   });
 };
-
-useRetrievalCreate.name = HOOK_NAME;

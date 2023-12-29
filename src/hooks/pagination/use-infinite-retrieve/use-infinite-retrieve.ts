@@ -81,5 +81,3 @@ export const useInfiniteRetrieve = <
 
   return { ...infiniteQuery, ...aux };
 };
-
-useInfiniteRetrieve.name = HOOK_NAME;

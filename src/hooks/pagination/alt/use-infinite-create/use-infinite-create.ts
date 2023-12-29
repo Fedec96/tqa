@@ -85,5 +85,3 @@ export const useInfiniteCreate = <
 
   return { ...infiniteQuery, ...aux };
 };
-
-useInfiniteCreate.name = HOOK_NAME;

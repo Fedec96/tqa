@@ -42,5 +42,3 @@ export const useRetrieve = <
         })),
   });
 };
-
-useRetrieve.name = HOOK_NAME;

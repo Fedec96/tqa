@@ -94,5 +94,3 @@ export const useDirectionalRetrieve = <
 
   return { ...query, ...aux };
 };
-
-useDirectionalRetrieve.name = HOOK_NAME;

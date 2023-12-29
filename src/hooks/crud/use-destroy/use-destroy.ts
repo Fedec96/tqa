@@ -36,5 +36,3 @@ export const useDestroy = <
         })),
   });
 };
-
-useDestroy.name = HOOK_NAME;

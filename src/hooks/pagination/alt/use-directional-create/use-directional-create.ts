@@ -98,5 +98,3 @@ export const useDirectionalCreate = <
 
   return { ...query, ...aux };
 };
-
-useDirectionalCreate.name = HOOK_NAME;

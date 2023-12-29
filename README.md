@@ -163,6 +163,35 @@ const query = useRetrieve("/v1/thing", {
 );
 ```
 
+### Debug
+
+You can toggle a simple debugging mechanism that logs some hook-related information to the browser's console. This can be performed globally and/or set/overridden at hook level.
+
+Example with Next.js and App Router:
+
+```tsx
+const consumer = new Consumer(http, { debug: true });
+
+export default function Providers({ children }: ProvidersProps) {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ConsumerProvider consumer={consumer}>{children}</ConsumerProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+Example at hook level:
+
+```ts
+const query = useRetrieve("/v1/info", {
+    reactQuery: { queryKey: ["info"] },
+    axios: { method: "get" },
+    consumer: { options: { debug: true } },
+  }
+);
+```
+
 ### Consumer
 
 When you need access to your global consumer from within React's components tree or hooks you can use `useConsumer`:

@@ -17,4 +17,5 @@ export const useDebug = (
 
     console.info(`${new Date().toLocaleString()} - ${hookName}`);
     console.log({ url, safeUrl, config });
+    console.log("\n");
   }, [enable, hookName, url, safeUrl, config]);

@@ -13,6 +13,7 @@ A strongly typed hooks library based on TanStack's React Query & Axios to perfor
   - [Data](#data)
   - [TypeScript](#typescript)
 - [Hooks](#hooks)
+  - [Debug](#debug)
   - [Consumer](#consumer)
   - [CRUD](#crud)
     - [Retrieve, status](#retrieve-status)

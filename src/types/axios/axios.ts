@@ -25,11 +25,11 @@ interface BaseConsumer {
 }
 
 interface ExternalGenericConsumer {
-  external: boolean;
+  external?: boolean;
 }
 
 interface ExternalCustomConsumer {
-  instance: AxiosInstance;
+  instance?: AxiosInstance;
 }
 
 export interface FlexibleConsumerConfig {

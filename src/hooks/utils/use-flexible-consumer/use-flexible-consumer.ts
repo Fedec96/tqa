@@ -9,13 +9,17 @@ export const useFlexibleConsumer = ({
   const ctxConsumer = useConsumer();
 
   if (consumer) {
-    if ("instance" in consumer) {
+    if ("instance" in consumer && consumer.instance) {
       return new Consumer(consumer.instance, consumer.options);
     }
 
-    if (consumer.external) {
+    if ("external" in consumer && consumer.external) {
       return new Consumer(axios.create(), consumer.options);
     }
+  }
+
+  if (consumer?.options) {
+    return new Consumer(ctxConsumer.instance, consumer.options);
   }
 
   return ctxConsumer;

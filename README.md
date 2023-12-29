@@ -132,6 +132,7 @@ const bookId = "123";
 const query = useRetrieve<"retrieve", BookRetrieve>(`/v1/book/${bookId}`, {
     reactQuery: { queryKey: ["book", bookId] },
     axios: { method: "get" },
+    consumer: { /* ... */ },
   }
 );
 ```
@@ -139,7 +140,7 @@ const query = useRetrieve<"retrieve", BookRetrieve>(`/v1/book/${bookId}`, {
 In addition, every hook accepts an optional `consumer` configuration object for when you want to perform requests with a completely different consumer without touching the default one you set in the provider. The configuration allows you to either switch to a generic, untouched instance:
 
 ```ts
-const query = useRetrieve("/v1/thing", {
+const query = useRetrieve("...", {
     /* ... */
     consumer: {
       external: true,
@@ -154,7 +155,7 @@ Or pass your own:
 ```ts
 const myConsumer = axios.create({ /* ... */ });
 
-const query = useRetrieve("/v1/thing", {
+const query = useRetrieve("...", {
     /* ... */
     consumer: {
       instance: myConsumer,
@@ -185,12 +186,10 @@ export default function Providers({ children }: ProvidersProps) {
 Example at hook level for local configuration:
 
 ```ts
-const query = useRetrieve("/v1/info", {
-    reactQuery: { queryKey: ["info"] },
-    axios: { method: "get" },
-    consumer: { options: { debug: true } },
-  }
-);
+useRetrieve("...", {
+  /* ... */
+  consumer: { options: { debug: true } },
+});
 ```
 
 ### Consumer

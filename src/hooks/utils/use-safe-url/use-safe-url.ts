@@ -3,21 +3,10 @@ import { useState, useEffect } from "react";
 import type { Endpoint } from "../../../types";
 import type { UseSafeUrlResult } from "./types";
 
-const buildAxiosSafeUrl = (url: Endpoint): string => {
-  if (typeof url === "string") {
-    return url;
-  }
-
-  try {
-    return String(url);
-  } catch {
-    const { pathname, search, hash } = url;
-    return String(new URL(`${pathname}${search}${hash}`, "http://localhost"));
-  }
-};
+const __safe = (url: Endpoint): string => String(url);
 
 export const useSafeUrl = (url: Endpoint): UseSafeUrlResult => {
-  const [endpoint, setEndpoint] = useState(buildAxiosSafeUrl(url));
-  useEffect(() => setEndpoint(buildAxiosSafeUrl(url)), [url]);
+  const [endpoint, setEndpoint] = useState(__safe(url));
+  useEffect(() => setEndpoint(__safe(url)), [url]);
   return endpoint;
 };

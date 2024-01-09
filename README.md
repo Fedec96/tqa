@@ -13,7 +13,6 @@ A strongly typed hooks library based on TanStack's React Query & Axios to perfor
   - [Data](#data)
   - [TypeScript](#typescript)
 - [Hooks](#hooks)
-  - [Debug](#debug)
   - [Consumer](#consumer)
   - [CRUD](#crud)
     - [Retrieve, status](#retrieve-status)
@@ -163,33 +162,6 @@ const query = useRetrieve("...", {
     },
   }
 );
-```
-
-### Debug
-
-You can toggle a simple debugging mechanism that logs some hook-related information to the browser's console. This can be performed globally and/or set/overridden at hook level.
-
-Example with Next.js and App Router for global configuration:
-
-```tsx
-const consumer = new Consumer(http, { debug: true });
-
-export default function Providers({ children }: ProvidersProps) {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ConsumerProvider consumer={consumer}>{children}</ConsumerProvider>
-    </QueryClientProvider>
-  );
-}
-```
-
-Example at hook level for local configuration:
-
-```ts
-useRetrieve("...", {
-  /* ... */
-  consumer: { options: { debug: true } },
-});
 ```
 
 ### Consumer

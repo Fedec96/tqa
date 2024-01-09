@@ -9,8 +9,6 @@ import {
   UseDirectionalCreateResult,
 } from "./types";
 
-const HOOK_NAME = "useDirectionalCreate";
-
 export const useDirectionalCreate = <
   TResponse = unknown,
   TPayload = unknown,
@@ -43,14 +41,7 @@ export const useDirectionalCreate = <
     offset,
     setOffset,
     safeUrl,
-  } = useDirectionalSetup(
-    HOOK_NAME,
-    url,
-    consumerConfig,
-    itemsPerPage,
-    initialPageParam,
-    config
-  );
+  } = useDirectionalSetup(url, consumerConfig, itemsPerPage, initialPageParam);
 
   const query = useQuery({
     ...reactQuery,

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useFlexibleConsumer, useRestSetup } from "../../../utils";
+import { useFlexibleConsumer, useSafeUrl } from "../../../utils";
 
 import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../../types";
@@ -8,8 +8,6 @@ import type {
   UseRetrievalCreateOptions,
   UseRetrievalCreateResult,
 } from "./types";
-
-const HOOK_NAME = "useRetrievalCreate";
 
 export const useRetrievalCreate = <
   TResponse = unknown,
@@ -22,7 +20,7 @@ export const useRetrievalCreate = <
 ): UseRetrievalCreateResult<TResponse, TPayload, TError> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
+  const safeUrl = useSafeUrl(url);
 
   return useQuery({
     ...reactQuery,

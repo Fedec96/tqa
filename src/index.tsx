@@ -10,20 +10,14 @@ const defaultPaginationParams: Readonly<PaginationParams> = {
 };
 
 export interface ConsumerConfig {
-  debug?: boolean;
   paginator?: Partial<PaginationParams>;
 }
 
 export class Consumer {
   readonly instance: AxiosInstance;
-  readonly debug: boolean;
   readonly paginator: Readonly<PaginationParams>;
 
-  constructor(
-    instance: AxiosInstance,
-    { debug, paginator }: ConsumerConfig = {}
-  ) {
-    this.debug = debug || false;
+  constructor(instance: AxiosInstance, { paginator }: ConsumerConfig = {}) {
     this.instance = instance;
     this.paginator = { ...defaultPaginationParams, ...paginator };
   }

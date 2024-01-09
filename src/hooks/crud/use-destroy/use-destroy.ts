@@ -1,11 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import { useFlexibleConsumer, useRestSetup } from "../../utils";
+import { useFlexibleConsumer, useSafeUrl } from "../../utils";
 
 import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../types";
 import type { UseDestroyOptions, UseDestroyResult } from "./types";
-
-const HOOK_NAME = "useDestroy";
 
 export const useDestroy = <
   TResponse = unknown,
@@ -17,7 +15,7 @@ export const useDestroy = <
 ): UseDestroyResult<TResponse, TError> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
+  const safeUrl = useSafeUrl(url);
 
   return useMutation({
     ...reactQuery,

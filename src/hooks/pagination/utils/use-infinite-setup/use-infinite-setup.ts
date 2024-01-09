@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useFlexibleConsumer, useRestSetup } from "../../../utils";
+import { useFlexibleConsumer, useSafeUrl } from "../../../utils";
 
 import type {
   Limit,
@@ -11,24 +11,21 @@ import type {
 import { UseInfiniteSetupResult } from "./types";
 
 export const useInfiniteSetup = (
-  hookName: string,
   url: Endpoint,
   consumerConfig: FlexibleConsumerConfig,
   itemsPerPage: Limit | undefined,
-  initialPageParam: PageParam | undefined,
-  config: unknown
+  initialPageParam: PageParam | undefined
 ): UseInfiniteSetupResult => {
   const consumer = useFlexibleConsumer(consumerConfig);
   const [limit] = useState(itemsPerPage ?? consumer.paginator.itemsPerPage);
-  const setup = useRestSetup(hookName, consumer.debug, url, config);
+  const safeUrl = useSafeUrl(url);
 
   return {
     consumer,
     limit,
+    safeUrl,
 
     initialPageParam:
       initialPageParam ?? consumer.paginator.initialPageParam ?? 0,
-
-    ...setup,
   };
 };

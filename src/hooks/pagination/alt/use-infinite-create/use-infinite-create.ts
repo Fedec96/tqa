@@ -9,8 +9,6 @@ import type {
   UseInfiniteCreateResult,
 } from "./types";
 
-const HOOK_NAME = "useInfiniteCreate";
-
 export const useInfiniteCreate = <
   TResponse = unknown,
   TPayload = unknown,
@@ -37,14 +35,7 @@ export const useInfiniteCreate = <
     limit,
     initialPageParam,
     safeUrl,
-  } = useInfiniteSetup(
-    HOOK_NAME,
-    url,
-    consumerConfig,
-    itemsPerPage,
-    initialPageParamCfg,
-    config
-  );
+  } = useInfiniteSetup(url, consumerConfig, itemsPerPage, initialPageParamCfg);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { useFlexibleConsumer, useRestSetup } from "../../utils";
+import { useFlexibleConsumer, useSafeUrl } from "../../utils";
 
 import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../types";
@@ -10,8 +10,6 @@ import type {
   UseCreateUpdateOptions,
   UseCreateUpdateResult,
 } from "./types";
-
-const HOOK_NAME = "useCreateUpdate";
 
 export const useCreateUpdate = <
   TRequest extends ActiveRequest,
@@ -25,7 +23,7 @@ export const useCreateUpdate = <
 ): UseCreateUpdateResult<TRequest, TResponse, TError, TPayload> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
+  const safeUrl = useSafeUrl(url);
 
   return useMutation({
     ...reactQuery,

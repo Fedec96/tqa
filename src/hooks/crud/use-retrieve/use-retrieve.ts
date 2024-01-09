@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useFlexibleConsumer, useRestSetup } from "../../utils";
+import { useFlexibleConsumer, useSafeUrl } from "../../utils";
 
 import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../types";
@@ -9,8 +9,6 @@ import type {
   UseRetrieveOptions,
   UseRetrieveResult,
 } from "./types";
-
-const HOOK_NAME = "useRetrieve";
 
 export const useRetrieve = <
   TRequest extends PassiveRequest,
@@ -23,7 +21,7 @@ export const useRetrieve = <
 ): UseRetrieveResult<TResponse, TError> => {
   const { axios, reactQuery, ...consumerConfig } = config;
   const rest = useFlexibleConsumer(consumerConfig);
-  const { safeUrl } = useRestSetup(HOOK_NAME, rest.debug, url, config);
+  const safeUrl = useSafeUrl(url);
 
   return useQuery({
     ...reactQuery,

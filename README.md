@@ -296,7 +296,7 @@ Additional configuration:
 | limitParam       | string \| undefined                    | The "limit" parameter name. If omitted, the default will be used                              |
 | offsetParam      | string \| undefined                    | The "offset" parameter name. If omitted, the default will be used                             |
 | lookup.results   | LookupCallback\<TResponse, unknown[]\> | Retrieves every page's record(s)                                                              |
-| lookup.total     | LookupCallback\<TResponse, number\>    | Returns the field that indicates how many total records are available                         |
+| lookup.total     | LookupCallback\<TResponse, Total\>     | Returns the field that indicates how many total records are available                         |
 | sendZeroOffset   | boolean \| undefined                   | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default |
 | initialPageParam | PageParam                              | The initial "limit" parameter's value. If omitted, the default will be used                   |
 

@@ -102,7 +102,7 @@ type LookupCallback<TResponse, TResult> = (response: TResponse) => TResult;
 export interface InfiniteConfig<TResponse> {
   lookup: {
     results: LookupCallback<TResponse, unknown[]>;
-    total: LookupCallback<TResponse, number>;
+    total: LookupCallback<TResponse, Total>;
   };
 }
 

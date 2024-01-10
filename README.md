@@ -251,15 +251,16 @@ interface ProvidersProps {
   children?: ReactNode;
 }
 
+const http = axios.create();
 const queryClient = new QueryClient();
 
-const consumer = new Consumer(axios.create(), {
+const consumer = new Consumer(http, {
   paginator: {
     limitParam: "limit",
     offsetParam: "offset",
     itemsPerPage: 10,
-    initialPageParam: 0, // Optional
-    sendZeroOffset: false, // Optional
+    initialPageParam: 0,
+    sendZeroOffset: false,
   },
 });
 

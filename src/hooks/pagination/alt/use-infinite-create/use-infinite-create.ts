@@ -18,24 +18,14 @@ export const useInfiniteCreate = <
   url: Endpoint,
   config: UseInfiniteCreateOptions<TResponse, TPayload, TParams, TError>
 ): UseInfiniteCreateResult<TResponse, TPayload, TError> => {
-  const {
-    axios,
-    reactQuery,
-    itemsPerPage,
-    limitParam,
-    offsetParam,
-    initialPageParam: initialPageParamCfg,
-    lookup,
-    sendZeroOffset,
-    ...consumerConfig
-  } = config;
+  const { axios, reactQuery, lookup, consumer } = config;
 
   const {
     consumer: rest,
     limit,
     initialPageParam,
     safeUrl,
-  } = useInfiniteSetup(url, consumerConfig, itemsPerPage, initialPageParamCfg);
+  } = useInfiniteSetup(url, consumer);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -53,13 +43,13 @@ export const useInfiniteCreate = <
 
             data: {
               ...(axios?.data as TPayload),
-              [limitParam || rest.paginator.limitParam]: limit,
+              [rest.config.paginator.limitParam]: limit,
 
-              ...(((sendZeroOffset &&
+              ...(((rest.config.paginator.sendZeroOffset &&
                 typeof pageParam === "number" &&
                 pageParam) ||
-                (!sendZeroOffset && pageParam)) && {
-                [offsetParam || rest.paginator.offsetParam]: pageParam,
+                (!rest.config.paginator.sendZeroOffset && pageParam)) && {
+                [rest.config.paginator.offsetParam]: pageParam,
               }),
             },
           }

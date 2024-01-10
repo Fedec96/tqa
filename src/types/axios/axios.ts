@@ -22,6 +22,7 @@ export type DatalessAxiosRequestConfig<TParams> = Omit<
 
 interface BaseConsumer {
   options?: ConsumerConfig;
+  mergeOptions?: boolean;
 }
 
 interface ExternalGenericConsumer {

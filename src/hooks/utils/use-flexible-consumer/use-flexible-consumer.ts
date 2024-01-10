@@ -1,25 +1,41 @@
 import axios from "axios";
-import { useConsumer, Consumer } from "../../..";
+import { useConsumer, Consumer, type ConsumerConfig } from "../../..";
 
-import type { UseFlexibleConsumerOptions } from "./types";
+import type { FlexibleConsumerConfig } from "../../../types";
 
-export const useFlexibleConsumer = ({
-  consumer,
-}: UseFlexibleConsumerOptions): Consumer => {
+export const useFlexibleConsumer = (
+  consumer: FlexibleConsumerConfig["consumer"]
+): Consumer => {
   const ctxConsumer = useConsumer();
 
   if (consumer) {
+    // Consumer
+    let instance = ctxConsumer.instance;
+
     if ("instance" in consumer && consumer.instance) {
-      return new Consumer(consumer.instance, consumer.options);
+      instance = consumer.instance;
     }
 
     if ("external" in consumer && consumer.external) {
-      return new Consumer(axios.create(), consumer.options);
+      instance = axios.create();
     }
-  }
 
-  if (consumer?.options) {
-    return new Consumer(ctxConsumer.instance, consumer.options);
+    // Options
+    let options: ConsumerConfig = {};
+
+    const defaultOptions = ctxConsumer.config;
+    const { options: customOptions, mergeOptions } = consumer;
+
+    if (customOptions && Object.keys(customOptions).length) {
+      options = mergeOptions
+        ? { ...defaultOptions, ...customOptions }
+        : customOptions;
+    } else {
+      options = defaultOptions;
+    }
+
+    // Output
+    return new Consumer(instance, options);
   }
 
   return ctxConsumer;

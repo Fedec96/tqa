@@ -11,26 +11,20 @@ export type Limit = number;
 export type Offset = number;
 export type PageParam = Offset | undefined;
 
-export interface PaginationParams {
+export type PaginationParams = Partial<{
   itemsPerPage: Limit;
   limitParam: string;
   offsetParam: string;
-  initialPageParam?: PageParam;
-}
+  initialPageParam: PageParam;
+  sendZeroOffset: boolean;
+}>;
 
-interface CommonPaginatorConfig {
-  sendZeroOffset?: boolean;
-}
-
-export interface BasePaginatorConfig<TParams>
-  extends Partial<PaginationParams>,
-    CommonPaginatorConfig {
+export interface BasePaginatorConfig<TParams> {
   axios?: Methodless<DatalessAxiosRequestConfig<TParams>>;
 }
 
 export interface AltPaginatorConfig<TPayload, TParams>
-  extends Omit<BasePaginatorConfig<TParams>, "axios">,
-    CommonPaginatorConfig {
+  extends Omit<BasePaginatorConfig<TParams>, "axios"> {
   axios?: Methodless<AnylessAxiosRequestConfig<TPayload, TParams>>;
 }
 

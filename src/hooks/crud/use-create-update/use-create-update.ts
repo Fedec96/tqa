@@ -21,8 +21,8 @@ export const useCreateUpdate = <
   url: Endpoint,
   config: UseCreateUpdateOptions<TRequest, TResponse, TPayload, TParams, TError>
 ): UseCreateUpdateResult<TRequest, TResponse, TError, TPayload> => {
-  const { axios, reactQuery, ...consumerConfig } = config;
-  const rest = useFlexibleConsumer(consumerConfig);
+  const { axios, reactQuery, consumer } = config;
+  const rest = useFlexibleConsumer(consumer);
   const safeUrl = useSafeUrl(url);
 
   return useMutation({

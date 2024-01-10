@@ -13,8 +13,8 @@ export const useDestroy = <
   url: Endpoint,
   config: UseDestroyOptions<TResponse, TParams, TError>
 ): UseDestroyResult<TResponse, TError> => {
-  const { axios, reactQuery, ...consumerConfig } = config;
-  const rest = useFlexibleConsumer(consumerConfig);
+  const { axios, reactQuery, consumer } = config;
+  const rest = useFlexibleConsumer(consumer);
   const safeUrl = useSafeUrl(url);
 
   return useMutation({

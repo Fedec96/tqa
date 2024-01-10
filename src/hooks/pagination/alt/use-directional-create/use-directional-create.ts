@@ -21,18 +21,13 @@ export const useDirectionalCreate = <
   const {
     axios,
     reactQuery,
-    itemsPerPage,
-    limitParam,
-    offsetParam,
-    initialPageParam,
     hasPreviousPage,
     hasNextPage,
     getPreviousOffset,
     getNextOffset,
     getIntervalFrom,
     getIntervalTo,
-    sendZeroOffset,
-    ...consumerConfig
+    consumer,
   } = config;
 
   const {
@@ -41,7 +36,7 @@ export const useDirectionalCreate = <
     offset,
     setOffset,
     safeUrl,
-  } = useDirectionalSetup(url, consumerConfig, itemsPerPage, initialPageParam);
+  } = useDirectionalSetup(url, consumer);
 
   const query = useQuery({
     ...reactQuery,
@@ -57,10 +52,11 @@ export const useDirectionalCreate = <
 
             data: {
               ...(axios?.data as TPayload),
-              [limitParam || rest.paginator.limitParam]: limit,
+              [rest.config.paginator.limitParam]: limit,
 
-              ...((sendZeroOffset || (!sendZeroOffset && offset)) && {
-                [offsetParam || rest.paginator.offsetParam]: offset,
+              ...((rest.config.paginator.sendZeroOffset ||
+                (!rest.config.paginator.sendZeroOffset && offset)) && {
+                [rest.config.paginator.offsetParam]: offset,
               }),
             },
           }

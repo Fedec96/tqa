@@ -131,7 +131,6 @@ const bookId = "123";
 const query = useRetrieve<"retrieve", BookRetrieve>(`/v1/book/${bookId}`, {
     reactQuery: { queryKey: ["book", bookId] },
     axios: { method: "get" },
-    consumer: { /* ... */ },
   }
 );
 ```
@@ -173,6 +172,17 @@ const consumer = useConsumer();
 ```
 
 This will allow you to read the current default values and edit the consumer instance, although accessing its raw Axios instance would suffice for the latter case.
+
+Consumer configuration:
+
+| Field                                | Type                 | Description                                                                               |
+| ------------------------------------ | -------------------- | ----------------------------------------------------------------------------------------- |
+| mergeOptions                         | boolean \| undefined | Whether to merge the passed options with the default ones. Defaults to false              |
+| options?.paginator?.itemsPerPage     | number \| undefined  | The number of records per page. Defaults to 10                                            |
+| options?.paginator?.limitParam       | string \| undefined  | The name of the limit parameter. Defaults to "limit"                                      |
+| options?.paginator?.offsetParam      | string \| undefined  | The name of the offset parameter. Defaults to "offset"                                    |
+| options?.paginator?.sendZeroOffset   | boolean \| undefined | Whether to include the offset parameter in the URL when the value is 0. Defaults to false |
+| options?.paginator?.initialPageParam | number \| undefined  | The initial offset parameter's value. Defaults to 0                                       |
 
 ### CRUD
 
@@ -249,6 +259,7 @@ const consumer = new Consumer(axios.create(), {
     offsetParam: "offset",
     itemsPerPage: 10,
     initialPageParam: 0, // Optional
+    sendZeroOffset: false, // Optional
   },
 });
 
@@ -292,13 +303,8 @@ Additional configuration:
 
 | Field            | Type                                   | Description                                                                                   |
 | ---------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| itemsPerPage     | number \| undefined                    | The page size. If omitted, the default will be used                                           |
-| limitParam       | string \| undefined                    | The "limit" parameter name. If omitted, the default will be used                              |
-| offsetParam      | string \| undefined                    | The "offset" parameter name. If omitted, the default will be used                             |
 | lookup.results   | LookupCallback\<TResponse, unknown[]\> | Retrieves every page's record(s)                                                              |
 | lookup.total     | LookupCallback\<TResponse, Total\>     | Returns the field that indicates how many total records are available                         |
-| sendZeroOffset   | boolean \| undefined                   | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default |
-| initialPageParam | PageParam                              | The initial "limit" parameter's value. If omitted, the default will be used                   |
 
 Along with what's returned by TanStack's React Query's `useInfiniteQuery` hook, provides additional fields:
 
@@ -373,11 +379,6 @@ Additional configuration:
 
 | Field             | Type                                                 | Description                                                                                        |
 | ----------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| itemsPerPage      | number \| undefined                                  | The page size. If omitted, the default will be used                                                |
-| limitParam        | string \| undefined                                  | The "limit" parameter name. If omitted, the default will be used                                   |
-| offsetParam       | string \| undefined                                  | The "offset" parameter name. If omitted, the default will be used                                  |
-| sendZeroOffset    | boolean \| undefined                                 | Whether to include the "offset" parameter in the URL when the value is 0. Disabled by default      |
-| initialPageParam  | PageParam                                            | The initial "limit" parameter's value. If omitted, the default will be used                        |
 | hasPreviousPage   | PageDeterminator\<TResponse\>                        | Determines whether there's a previous page                                                         |
 | hasNextPage       | PageDeterminator\<TResponse\>                        | Determines whether there's a next page                                                             |
 | getPreviousOffset | OffsetCalculator\<TResponse\>                        | Retrieves the previous offset, if available                                                        |

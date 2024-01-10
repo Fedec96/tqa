@@ -1,25 +1,28 @@
 import { useContext, createContext, type ReactNode } from "react";
 
 import type { AxiosInstance } from "axios";
+import type { RequiredDeep } from "type-fest";
 import type { PaginationParams } from "./types/pagination/pagination";
 
-const defaultPaginationParams: Readonly<PaginationParams> = {
+const defaultPaginationParams: Readonly<RequiredDeep<PaginationParams>> = {
   itemsPerPage: 10,
   limitParam: "limit",
   offsetParam: "offset",
+  sendZeroOffset: false,
+  initialPageParam: 0,
 };
 
 export interface ConsumerConfig {
-  paginator?: Partial<PaginationParams>;
+  paginator?: PaginationParams;
 }
 
 export class Consumer {
   readonly instance: AxiosInstance;
-  readonly paginator: Readonly<PaginationParams>;
+  readonly config: Readonly<RequiredDeep<ConsumerConfig>>;
 
   constructor(instance: AxiosInstance, { paginator }: ConsumerConfig = {}) {
     this.instance = instance;
-    this.paginator = { ...defaultPaginationParams, ...paginator };
+    this.config = { paginator: { ...defaultPaginationParams, ...paginator } };
   }
 }
 

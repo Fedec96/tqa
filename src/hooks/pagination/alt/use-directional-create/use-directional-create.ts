@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { safeUrl } from "../../../../lib/misc";
 import { useDirectionalSetup, useDirectionalAux } from "../../utils";
 
 import type { AxiosResponse } from "axios";
@@ -35,8 +36,7 @@ export const useDirectionalCreate = <
     limit,
     offset,
     setOffset,
-    safeUrl,
-  } = useDirectionalSetup(url, consumer);
+  } = useDirectionalSetup(consumer);
 
   const query = useQuery({
     ...reactQuery,
@@ -45,7 +45,7 @@ export const useDirectionalCreate = <
     queryFn: () =>
       rest
         .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
-          safeUrl,
+          safeUrl(url),
           {
             ...axios,
             method: "post",

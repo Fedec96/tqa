@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { safeUrl } from "../../../lib/misc";
 import { useDirectionalSetup, useDirectionalAux } from "../utils";
 
 import type { AxiosResponse } from "axios";
@@ -34,8 +35,7 @@ export const useDirectionalRetrieve = <
     limit,
     offset,
     setOffset,
-    safeUrl,
-  } = useDirectionalSetup(url, consumer);
+  } = useDirectionalSetup(consumer);
 
   const query = useQuery({
     ...reactQuery,
@@ -43,20 +43,23 @@ export const useDirectionalRetrieve = <
 
     queryFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(safeUrl, {
-          ...axios,
-          method: "get",
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+          safeUrl(url),
+          {
+            ...axios,
+            method: "get",
 
-          params: {
-            ...axios?.params,
-            [rest.config.paginator.limitParam]: limit,
+            params: {
+              ...axios?.params,
+              [rest.config.paginator.limitParam]: limit,
 
-            ...((rest.config.paginator.sendZeroOffset ||
-              (!rest.config.paginator.sendZeroOffset && offset)) && {
-              [rest.config.paginator.offsetParam]: offset,
-            }),
-          },
-        })
+              ...((rest.config.paginator.sendZeroOffset ||
+                (!rest.config.paginator.sendZeroOffset && offset)) && {
+                [rest.config.paginator.offsetParam]: offset,
+              }),
+            },
+          }
+        )
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,

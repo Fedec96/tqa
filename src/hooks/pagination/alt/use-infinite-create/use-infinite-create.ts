@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { safeUrl } from "../../../../lib/misc";
 import { useInfiniteSetup, useInfiniteAux } from "../../utils";
 
 import type { AxiosResponse } from "axios";
@@ -24,8 +25,7 @@ export const useInfiniteCreate = <
     consumer: rest,
     limit,
     initialPageParam,
-    safeUrl,
-  } = useInfiniteSetup(url, consumer);
+  } = useInfiniteSetup(consumer);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -36,7 +36,7 @@ export const useInfiniteCreate = <
     queryFn: ({ pageParam }) =>
       rest
         .instance<TResponse, AxiosResponse<TResponse, TPayload>, TPayload>(
-          safeUrl,
+          safeUrl(url),
           {
             ...axios,
             method: "post",

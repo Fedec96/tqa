@@ -1,4 +1,5 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { safeUrl } from "../../../lib/misc";
 import { useInfiniteSetup, useInfiniteAux } from "../utils";
 
 import type { AxiosResponse } from "axios";
@@ -23,8 +24,7 @@ export const useInfiniteRetrieve = <
     consumer: rest,
     limit,
     initialPageParam,
-    safeUrl,
-  } = useInfiniteSetup(url, consumer);
+  } = useInfiniteSetup(consumer);
 
   const infiniteQuery = useInfiniteQuery({
     ...reactQuery,
@@ -34,22 +34,25 @@ export const useInfiniteRetrieve = <
 
     queryFn: ({ pageParam }) =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(safeUrl, {
-          ...axios,
-          method: "get",
+        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+          safeUrl(url),
+          {
+            ...axios,
+            method: "get",
 
-          params: {
-            ...axios?.params,
-            [rest.config.paginator.limitParam]: limit,
+            params: {
+              ...axios?.params,
+              [rest.config.paginator.limitParam]: limit,
 
-            ...(((rest.config.paginator.sendZeroOffset &&
-              typeof pageParam === "number" &&
-              pageParam) ||
-              (!rest.config.paginator.sendZeroOffset && pageParam)) && {
-              [rest.config.paginator.offsetParam]: pageParam,
-            }),
-          },
-        })
+              ...(((rest.config.paginator.sendZeroOffset &&
+                typeof pageParam === "number" &&
+                pageParam) ||
+                (!rest.config.paginator.sendZeroOffset && pageParam)) && {
+                [rest.config.paginator.offsetParam]: pageParam,
+              }),
+            },
+          }
+        )
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,

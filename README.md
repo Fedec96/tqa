@@ -88,23 +88,23 @@ No default configuration is provided to Axios out of the box - it can be fully h
 
 Each hook can be strongly typed to fit your needs, from the server's response to the URL parameters. All the hooks accept the same generics:
 
-| Generic   | Description                                                                                                |
-| --------- | ---------------------------------------------------------------------------------------------------------- |
-| TResponse | The type definition for the response from the server                                                       |
-| TParams   | The type definition for a subset of URL parameters for Axios. Each field is recursively marked as optional |
-| TError    | The type definition for the error response from the server                                                 |
+| Generic     | Description                                                                                                |
+| ----------- | ---------------------------------------------------------------------------------------------------------- |
+| `TResponse` | The type definition for the response from the server                                                       |
+| `TParams`   | The type definition for a subset of URL parameters for Axios. Each field is recursively marked as optional |
+| `TError`    | The type definition for the error response from the server                                                 |
 
 Hooks that allow for different request methods accept an additional generic:
 
-| Generic  | Description                                                                                      |
-| -------- | ------------------------------------------------------------------------------------------------ |
-| TRequest | The request's nature. This will enforce the request's method and adjust the hook's configuration |
+| Generic    | Description                                                                                      |
+| ---------- | ------------------------------------------------------------------------------------------------ |
+| `TRequest` | The request's nature. This will enforce the request's method and adjust the hook's configuration |
 
 Hooks designed for requests with a payload accept an additional generic:
 
-| Generic  | Description                                                                                                               |
-| -------- | ------------------------------------------------------------------------------------------------------------------------- |
-| TPayload | The type definition for the request's body. The passed type's field are recursively marked as optional for PATCH requests |
+| Generic    | Description                                                                                                                 |
+| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `TPayload` | The type definition for the request's body. The passed type's field are recursively marked as optional for `PATCH` requests |
 
 ### Data
 
@@ -112,12 +112,12 @@ The `data` object exposed by each hook is what React Query returns from the fetc
 
 Powered by Axios, it's enriched with more information:
 
-| Attribute  | Type                                            | Description                                          |
-| ---------- | ----------------------------------------------- | ---------------------------------------------------- |
-| response   | TResponse                                       | The response returned by the server                  |
-| headers    | AxiosResponseHeaders \| RawAxiosResponseHeaders | The response's headers                               |
-| status     | number                                          | The response's status code                           |
-| statusText | string                                          | The response's status message returned by the server |
+| Attribute    | Type                                              | Description                                          |
+| ------------ | ------------------------------------------------- | ---------------------------------------------------- |
+| `response`   | `TResponse`                                       | The response returned by the server                  |
+| `headers`    | `AxiosResponseHeaders \| RawAxiosResponseHeaders` | The response's headers                               |
+| `status`     | `number`                                          | The response's status code                           |
+| `statusText` | `string`                                          | The response's status message returned by the server |
 
 ## Hooks
 
@@ -175,20 +175,20 @@ This will allow you to read the current default values and edit the consumer ins
 
 Consumer configuration:
 
-| Field                                | Type                 | Description                                                                               |
-| ------------------------------------ | -------------------- | ----------------------------------------------------------------------------------------- |
-| mergeOptions                         | boolean \| undefined | Whether to merge the passed options with the default ones. Defaults to false              |
-| options?.paginator?.itemsPerPage     | number \| undefined  | The number of records per page. Defaults to 10                                            |
-| options?.paginator?.limitParam       | string \| undefined  | The name of the limit parameter. Defaults to "limit"                                      |
-| options?.paginator?.offsetParam      | string \| undefined  | The name of the offset parameter. Defaults to "offset"                                    |
-| options?.paginator?.sendZeroOffset   | boolean \| undefined | Whether to include the offset parameter in the URL when the value is 0. Defaults to false |
-| options?.paginator?.initialPageParam | number \| undefined  | The initial offset parameter's value. Defaults to 0                                       |
+| Field                                  | Type                   | Description                                                                                 |
+| -------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------- |
+| `mergeOptions`                         | `boolean \| undefined` | Whether to merge the passed options with the default ones. Defaults to `false`              |
+| `options?.paginator?.itemsPerPage`     | `number \| undefined`  | The number of records per page. Defaults to `10`                                            |
+| `options?.paginator?.limitParam`       | `string \| undefined`  | The name of the limit parameter. Defaults to `"limit"`                                      |
+| `options?.paginator?.offsetParam`      | `string \| undefined`  | The name of the offset parameter. Defaults to `"offset"`                                    |
+| `options?.paginator?.sendZeroOffset`   | `boolean \| undefined` | Whether to include the offset parameter in the URL when the value is 0. Defaults to `false` |
+| `options?.paginator?.initialPageParam` | `number \| undefined`  | The initial offset parameter's value. Defaults to `0`                                       |
 
 ### CRUD
 
 #### Retrieve, status
 
-The `useRetrieve` hook can be used to perform GET and HEAD requests.
+The `useRetrieve` hook can be used to perform `GET` and `HEAD` requests.
 
 ```ts
 import { useRetrieve } from "tqa/hooks/crud";
@@ -198,7 +198,7 @@ const query = useRetrieve<"retrieve" | "status", TResponse, TParams, TError>(url
 
 ##### Retrieve (POST)
 
-The `useRetrievalCreate` hook is an alternate version of `useRetrieve` built specifically for performing POST requests behaving as GETs. Everything works as it does for `useRetrieve` with the addition of the payload's generic type `TPayload` and no need to specify `TRequest`.
+The `useRetrievalCreate` hook is an alternate version of `useRetrieve` built specifically for performing `POST` requests behaving as `GET`s. Everything works as it does for `useRetrieve` with the addition of the payload's generic type `TPayload` and no need to specify `TRequest`.
 
 ```ts
 import { useRetrievalCreate } from "tqa/hooks/crud/alt";
@@ -208,7 +208,7 @@ const query = useRetrievalCreate<TResponse, TPayload, TParams, TError>(url, conf
 
 #### Create, update, partial update
 
-The `useCreateUpdate` hook can be used to perform POST, PUT and PATCH requests.
+The `useCreateUpdate` hook can be used to perform `POST`, `PUT` and `PATCH` requests.
 
 ```ts
 import { useCreateUpdate } from "tqa/hooks/crud";
@@ -220,7 +220,7 @@ const mutation = useCreateUpdate<"create" | "update" | "partialUpdate", TRespons
 
 #### Destroy
 
-The `useDestroy` hook can be used to perform DELETE requests only.
+The `useDestroy` hook can be used to perform `DELETE` requests only.
 
 ```ts
 import { useDestroy } from "tqa/hooks/crud";
@@ -302,17 +302,17 @@ const infinite = useInfiniteRetrieve<PaginationResponse<TResponse>, TParams, TEr
 
 Additional configuration:
 
-| Field            | Type                                   | Description                                                                                   |
-| ---------------- | -------------------------------------- | --------------------------------------------------------------------------------------------- |
-| lookup.results   | LookupCallback\<TResponse, unknown[]\> | Retrieves every page's record(s)                                                              |
-| lookup.total     | LookupCallback\<TResponse, Total\>     | Returns the field that indicates how many total records are available                         |
+| Field              | Type                                 | Description                                                                                   |
+| ------------------ | ------------------------------------ | --------------------------------------------------------------------------------------------- |
+| `lookup.results`   | `(response: TResponse) => unknown[]` | Retrieves every page's record(s)                                                              |
+| `lookup.total`     | `(response: TResponse) => number`    | Returns the field that indicates how many total records are available                         |
 
 Along with what's returned by TanStack's React Query's `useInfiniteQuery` hook, provides additional fields:
 
-| Field         | Type  | Description                                                   |
-| ------------- | ----- | ------------------------------------------------------------- |
-| total.records | Total | The amount of all the available records that can be paginated |
-| total.fetched | Total | The cumulating amount of currently fetched records            |
+| Field           | Type     | Description                                                   |
+| --------------- | -------- | ------------------------------------------------------------- |
+| `total.records` | `number` | The amount of all the available records that can be paginated |
+| `total.fetched` | `number` | The cumulating amount of currently fetched records            |
 
 If you want to standardize your pagination hook without having to pass the same types and configurations over and over, you can create a custom wrapper with the `UseInfiniteRetrieveFactory` type:
 
@@ -378,24 +378,24 @@ const query = useDirectionalRetrieve<PaginationResponse<TResponse>, TParams, TEr
 
 Additional configuration:
 
-| Field             | Type                                                 | Description                                                                                        |
-| ----------------- | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| hasPreviousPage   | PageDeterminator\<TResponse\>                        | Determines whether there's a previous page                                                         |
-| hasNextPage       | PageDeterminator\<TResponse\>                        | Determines whether there's a next page                                                             |
-| getPreviousOffset | OffsetCalculator\<TResponse\>                        | Retrieves the previous offset, if available                                                        |
-| getNextOffset     | OffsetCalculator\<TResponse\>                        | Retrieves the next offset, if available                                                            |
-| getIntervalFrom   | IntervalCalculator\<TResponse, "from"\> \| undefined | Determines the currently viewed interval's "from" index. If provided, `getIntervalTo` is mandatory |
-| getIntervalTo     | IntervalCalculator\<TResponse, "to"\> \| undefined   | Determines the currently viewed interval's "to" index. If provided, `getIntervalFrom` is mandatory |
+| Field               | Type                                                                                                                                                    | Description                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `hasPreviousPage`   | `(response: TResponse, limit: number, offset: number) => boolean`                                                                                       | Determines whether there's a previous page                                                         |
+| `hasNextPage`       | `(response: TResponse, limit: number, offset: number) => boolean`                                                                                       | Determines whether there's a next page                                                             |
+| `getPreviousOffset` | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined`                               | Retrieves the previous offset, if available                                                        |
+| `getNextOffset`     | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined`                               | Retrieves the next offset, if available                                                            |
+| `getIntervalFrom`   | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => { from: number, to: number }["from"] \| undefined` | Determines the currently viewed interval's "from" index. If provided, `getIntervalTo` is mandatory |
+| `getIntervalTo`     | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => { from: number, to: number }["to"] \| undefined`   | Determines the currently viewed interval's "to" index. If provided, `getIntervalFrom` is mandatory |
 
 Along with what's returned by TanStack's React Query's `useQuery` hook, provides additional fields:
 
-| Field             | Type          | Description                                                             |
-| ----------------- | ------------- | ----------------------------------------------------------------------- |
-| hasPreviousPage   | boolean       | Whether the user can navigate backwards                                 |
-| hasNextPage       | boolean       | Whether the user can navigate forward                                   |
-| fetchPreviousPage | () => void    | Fetches the previous page, if available                                 |
-| fetchNextPage     | () => void    | Fetches the next page, if available                                     |
-| interval          | IntervalValue | Shows the currently viewed interval ("from"/"to" indexes) if configured |
+| Field               | Type                                        | Description                                                             |
+| ------------------- | ------------------------------------------- | ----------------------------------------------------------------------- |
+| `hasPreviousPage`   | `boolean`                                   | Whether the user can navigate backwards                                 |
+| `hasNextPage`       | `boolean`                                   | Whether the user can navigate forward                                   |
+| `fetchPreviousPage` | `() => void`                                | Fetches the previous page, if available                                 |
+| `fetchNextPage`     | `() => void`                                | Fetches the next page, if available                                     |
+| `interval`          | `{ from: number, to: number } \| undefined` | Shows the currently viewed interval ("from"/"to" indexes) if configured |
 
 > The navigation control functions will take care of checking if the navigation can be performed by first checking if the data is still being retrieved, or if the page that is being requested is actually available, so that you don't have to.
 
@@ -428,7 +428,7 @@ export const useDirectionalPagination = <
     getIntervalFrom: ({ results }, offset) => results.length ? offset + 1 : 0,
     getIntervalTo: ({ results }, offset) => results.length + offset,
 
-    // Highly recommended
+    // Recommended
     reactQuery: {
       ...config.reactQuery,
       placeholderData: keepPreviousData,

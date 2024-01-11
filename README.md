@@ -175,14 +175,14 @@ This will allow you to read the current default values and edit the consumer ins
 
 Consumer configuration:
 
-| Field                                  | Type                   | Description                                                                                 |
-| -------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------- |
-| `mergeOptions`                         | `boolean \| undefined` | Whether to merge the passed options with the default ones. Defaults to `false`              |
-| `options?.paginator?.itemsPerPage`     | `number \| undefined`  | The number of records per page. Defaults to `10`                                            |
-| `options?.paginator?.limitParam`       | `string \| undefined`  | The name of the limit parameter. Defaults to `"limit"`                                      |
-| `options?.paginator?.offsetParam`      | `string \| undefined`  | The name of the offset parameter. Defaults to `"offset"`                                    |
-| `options?.paginator?.sendZeroOffset`   | `boolean \| undefined` | Whether to include the offset parameter in the URL when the value is 0. Defaults to `false` |
-| `options?.paginator?.initialPageParam` | `number \| undefined`  | The initial offset parameter's value. Defaults to `0`                                       |
+| Field                                   | Type                   | Description                                                                                 |
+| --------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------- |
+| `mergeOptions?`                         | `boolean \| undefined` | Whether to merge the passed options with the default ones. Defaults to `false`              |
+| `options?.paginator?.itemsPerPage?`     | `number \| undefined`  | The number of records per page. Defaults to `10`                                            |
+| `options?.paginator?.limitParam?`       | `string \| undefined`  | The name of the limit parameter. Defaults to `"limit"`                                      |
+| `options?.paginator?.offsetParam?`      | `string \| undefined`  | The name of the offset parameter. Defaults to `"offset"`                                    |
+| `options?.paginator?.sendZeroOffset?`   | `boolean \| undefined` | Whether to include the offset parameter in the URL when the value is 0. Defaults to `false` |
+| `options?.paginator?.initialPageParam?` | `number \| undefined`  | The initial offset parameter's value. Defaults to `0`                                       |
 
 ### CRUD
 
@@ -378,14 +378,14 @@ const query = useDirectionalRetrieve<PaginationResponse<TResponse>, TParams, TEr
 
 Additional configuration:
 
-| Field               | Type                                                                                                                                                    | Description                                                                                        |
-| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `hasPreviousPage`   | `(response: TResponse, limit: number, offset: number) => boolean`                                                                                       | Determines whether there's a previous page                                                         |
-| `hasNextPage`       | `(response: TResponse, limit: number, offset: number) => boolean`                                                                                       | Determines whether there's a next page                                                             |
-| `getPreviousOffset` | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined`                               | Retrieves the previous offset, if available                                                        |
-| `getNextOffset`     | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined`                               | Retrieves the next offset, if available                                                            |
-| `getIntervalFrom`   | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => { from: number, to: number }["from"] \| undefined` | Determines the currently viewed interval's "from" index. If provided, `getIntervalTo` is mandatory |
-| `getIntervalTo`     | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => { from: number, to: number }["to"] \| undefined`   | Determines the currently viewed interval's "to" index. If provided, `getIntervalFrom` is mandatory |
+| Field               | Type                                                                                                                      | Description                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `hasPreviousPage`   | `(response: TResponse, limit: number, offset: number) => boolean`                                                         | Determines whether there's a previous page                                                         |
+| `hasNextPage`       | `(response: TResponse, limit: number, offset: number) => boolean`                                                         | Determines whether there's a next page                                                             |
+| `getPreviousOffset` | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined` | Retrieves the previous offset, if available                                                        |
+| `getNextOffset`     | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined` | Retrieves the next offset, if available                                                            |
+| `getIntervalFrom?`  | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined` | Determines the currently viewed interval's "from" index. If provided, `getIntervalTo` is mandatory |
+| `getIntervalTo?`    | `(response: TResponse, limit: number, offset: number, hasPrevPage: boolean, hasNextPage: boolean) => number \| undefined` | Determines the currently viewed interval's "to" index. If provided, `getIntervalFrom` is mandatory |
 
 Along with what's returned by TanStack's React Query's `useQuery` hook, provides additional fields:
 

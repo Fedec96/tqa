@@ -45,8 +45,7 @@ export const useInfiniteRetrieve = <
               [rest.config.paginator.limitParam]: limit,
 
               ...(((rest.config.paginator.sendZeroOffset &&
-                typeof pageParam === "number" &&
-                pageParam) ||
+                typeof pageParam === "number") ||
                 (!rest.config.paginator.sendZeroOffset && pageParam)) && {
                 [rest.config.paginator.offsetParam]: pageParam,
               }),

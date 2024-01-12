@@ -22,16 +22,14 @@ export const useFlexibleConsumer = (
 
     // Options
     let options: ConsumerConfig = {};
-
-    const defaultOptions = ctxConsumer.config;
     const { options: customOptions, mergeOptions } = consumer;
 
     if (customOptions && Object.keys(customOptions).length) {
       options = mergeOptions
-        ? { ...defaultOptions, ...customOptions }
+        ? { ...ctxConsumer.config, ...customOptions }
         : customOptions;
     } else {
-      options = defaultOptions;
+      options = ctxConsumer.config;
     }
 
     // Output

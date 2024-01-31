@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useFlexibleConsumer } from "../../../utils";
 
-import type { FlexibleConsumerConfig, Offset } from "../../../../types";
+import type { FlexibleConsumerConfig } from "../../../../types";
 import type { UseDirectionalSetupResult } from "./types";
 
 export const useDirectionalSetup = (
@@ -10,7 +10,7 @@ export const useDirectionalSetup = (
   const consumer = useFlexibleConsumer(consumerConfig);
   const [limit] = useState(consumer.config.paginator.itemsPerPage);
 
-  const [offset, setOffset] = useState<Offset>(
+  const [offset, setOffset] = useState(
     consumer.config.paginator.initialPageParam
   );
 

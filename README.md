@@ -425,8 +425,8 @@ export const useDirectionalPagination = <
     getNextOffset: ({ next }) => next || undefined,
 
     // Optional
-    getIntervalFrom: ({ results }, offset) => results.length ? offset + 1 : 0,
-    getIntervalTo: ({ results }, offset) => results.length + offset,
+    getIntervalFrom: ({ results }, _, offset) => results.length ? offset + 1 : 0,
+    getIntervalTo: ({ results }, _, offset) => results.length + offset,
 
     // Recommended
     reactQuery: {

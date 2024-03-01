@@ -1,6 +1,6 @@
 {
   "name": "tqa",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A strongly typed hooks library based on TanStack's React Query & Axios to perform common CRUD operations for dead simple RESTful HTTP requests",
   "scripts": {
     "lint": "eslint src",
@@ -10,7 +10,7 @@
   "author": {
     "email": "fedec96@gmail.com",
     "name": "Federico Cappelletti",
-    "url": "https://github.com/users/Fedec96/"
+    "url": "https://github.com/Fedec96"
   },
   "repository": {
     "type": "git",

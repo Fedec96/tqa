@@ -17,6 +17,7 @@ A strongly typed hooks library based on TanStack's React Query & Axios to perfor
   - [CRUD](#crud)
     - [Retrieve, status](#retrieve-status)
       - [Retrieve (POST)](#retrieve-post)
+      - [Retrieve on demand](#retrieve-on-demand)
     - [Create, update, partial update](#create-update-partial-update)
     - [Destroy](#destroy)
 - [Pagination](#pagination)
@@ -204,6 +205,16 @@ The `useRetrievalCreate` hook is an alternate version of `useRetrieve` built spe
 import { useRetrievalCreate } from "tqa/hooks/crud/alt";
 
 const query = useRetrievalCreate<TResponse, TPayload, TParams, TError>(url, config);
+```
+
+##### Retrieve on demand
+
+The `useCreationalRetrieve` hook is an alternate version of `useRetrieve` built specifically for performing `GET` with mutation dynamics. Everything works as it does for `useRetrieve` except no request method can be passed.
+
+```ts
+import { useCreationalRetrieve } from "tqa/hooks/crud/alt";
+
+const mutation = useCreationalRetrieve<TResponse, TParams, TError>(url, config);
 ```
 
 #### Create, update, partial update

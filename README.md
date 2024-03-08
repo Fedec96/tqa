@@ -342,16 +342,16 @@ export const useInfinitePagination = <
   config: UseInfiniteRetrieveFactory<PaginationResponse<TResponse>, TParams, TError>
 ): UseInfiniteRetrieveResult<PaginationResponse<TResponse>, TError> =>
   useInfiniteRetrieve<PaginationResponse<TResponse>, TParams, TError>(url, {
-    ...config,
-
     lookup: {
       results: ({ results }) => results,
       total: ({ count }) => count,
     },
 
+    ...config,
+
     reactQuery: {
-      ...config.reactQuery,
       getNextPageParam: ({ response: { next } }) => next || undefined,
+      ...config.reactQuery,
     },
   });
 ```
@@ -428,8 +428,6 @@ export const useDirectionalPagination = <
   config: UseDirectionalRetrieveFactory<PaginationResponse<TResponse>, TParams, TError>
 ): UseDirectionalRetrieveResult<PaginationResponse<TResponse>, TError> =>
   useDirectionalRetrieve<PaginationResponse<TResponse>, TParams, TError>(url, {
-    ...config,
-
     hasPreviousPage: ({ previous }) => typeof previous === "number",
     hasNextPage: ({ next }) => typeof next === "number",
     getPreviousOffset: ({ previous }) => previous ?? undefined,
@@ -439,11 +437,10 @@ export const useDirectionalPagination = <
     getIntervalFrom: ({ results }, _, offset) => results.length ? offset + 1 : 0,
     getIntervalTo: ({ results }, _, offset) => results.length + offset,
 
+    ...config,
+
     // Recommended
-    reactQuery: {
-      ...config.reactQuery,
-      placeholderData: keepPreviousData,
-    },
+    reactQuery: { placeholderData: keepPreviousData, ...config.reactQuery },
   });
 ```
 

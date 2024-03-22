@@ -8,6 +8,8 @@ import type { Endpoint } from "../../../types";
 import type {
   UseInfiniteRetrieveOptions,
   UseInfiniteRetrieveResult,
+  HookException,
+  Payload,
 } from "./types";
 
 export const useInfiniteRetrieve = <
@@ -34,7 +36,7 @@ export const useInfiniteRetrieve = <
 
     queryFn: ({ pageParam }) =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
           safeUrl(url),
           {
             ...axios,
@@ -57,7 +59,10 @@ export const useInfiniteRetrieve = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError>) => {
+          throw err;
+        }),
   });
 
   const aux = useInfiniteAux<TResponse>(infiniteQuery.data, lookup);

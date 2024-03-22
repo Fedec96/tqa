@@ -16,13 +16,15 @@ import type {
   RootInfiniteFactoryKeys,
 } from "../../../../types";
 
+export type HookException<TError, TPayload> = AxiosError<TError, TPayload>;
+
 export interface UseInfiniteCreateOptions<TResponse, TPayload, TParams, TError>
   extends AltPaginatorConfig<TPayload, TParams>,
     FlexibleConsumerConfig,
     InfiniteConfig<TResponse> {
   reactQuery: FunctionlessUseInfiniteQueryOptions<
     RichResponse<TResponse>,
-    AxiosError<TError, TPayload>
+    HookException<TError, TPayload>
   >;
 }
 
@@ -45,6 +47,6 @@ export interface UseInfiniteCreateFactory<TResponse, TPayload, TParams, TError>
 export type UseInfiniteCreateResult<TResponse, TPayload, TError> =
   UseInfiniteQueryResult<
     InfiniteData<RichResponse<TResponse>>,
-    AxiosError<TError, TPayload>
+    HookException<TError, TPayload>
   > &
     InfiniteAttributes;

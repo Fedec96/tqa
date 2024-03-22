@@ -8,6 +8,7 @@ import type { Endpoint } from "../../../../types";
 import type {
   UseRetrievalCreateOptions,
   UseRetrievalCreateResult,
+  HookException,
 } from "./types";
 
 export const useRetrievalCreate = <
@@ -36,6 +37,9 @@ export const useRetrievalCreate = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError, TPayload>) => {
+          throw err;
+        }),
   });
 };

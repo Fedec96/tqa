@@ -8,6 +8,8 @@ import type { Endpoint } from "../../../types";
 import {
   UseDirectionalRetrieveOptions,
   UseDirectionalRetrieveResult,
+  HookException,
+  Payload,
 } from "./types";
 
 export const useDirectionalRetrieve = <
@@ -43,7 +45,7 @@ export const useDirectionalRetrieve = <
 
     queryFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
           safeUrl(url),
           {
             ...axios,
@@ -65,7 +67,10 @@ export const useDirectionalRetrieve = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError>) => {
+          throw err;
+        }),
   });
 
   const aux = useDirectionalAux<TResponse>(

@@ -9,6 +9,8 @@ import type {
   Methodless,
 } from "../../../types";
 
+export type Payload = void;
+export type HookException<TError> = AxiosError<TError, Payload>;
 export type PassiveRequest = "retrieve" | "status";
 type Method = Extract<BaseMethod, "get" | "GET" | "head" | "HEAD">;
 
@@ -24,7 +26,7 @@ export interface UseRetrieveOptions<
 > extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseQueryOptions<
     RichResponse<TResponse>,
-    AxiosError<TError, void>
+    HookException<TError>
   >;
 
   axios: Methodless<DatalessAxiosRequestConfig<TParams>> & {
@@ -34,5 +36,5 @@ export interface UseRetrieveOptions<
 
 export type UseRetrieveResult<TResponse, TError> = UseQueryResult<
   RichResponse<TResponse>,
-  AxiosError<TError, void>
+  HookException<TError>
 >;

@@ -107,6 +107,13 @@ Hooks designed for requests with a payload accept an additional generic:
 | ---------- | --------------------------------------------------------------------------------------------------------------------------- |
 | `TPayload` | The type definition for the request's body. The passed type's field are recursively marked as optional for `PATCH` requests |
 
+When the query/mutation fails, the error is raised by Axios:
+
+| Source    | Type                           |
+| --------- | ------------------------------ |
+| Queries   | `AxiosError<TError, void>`     |
+| Mutations | `AxiosError<TError, TPayload>` |
+
 ### Data
 
 The `data` object exposed by each hook is what React Query returns from the fetcher/mutator.

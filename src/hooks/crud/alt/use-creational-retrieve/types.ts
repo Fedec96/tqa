@@ -9,12 +9,15 @@ import type {
   DatalessAxiosRequestConfig,
 } from "../../../../types";
 
+export type Payload = void;
+export type HookException<TError> = AxiosError<TError, Payload>;
+
 export interface UseCreationalRetrieveOptions<TResponse, TParams, TError>
   extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseMutationOptions<
     RichResponse<TResponse>,
-    AxiosError<TError, void>,
-    void
+    HookException<TError>,
+    Payload
   >;
 
   axios?: Methodless<DatalessAxiosRequestConfig<TParams>>;
@@ -22,6 +25,6 @@ export interface UseCreationalRetrieveOptions<TResponse, TParams, TError>
 
 export type UseCreationalRetrieveResult<TResponse, TError> = UseMutationResult<
   RichResponse<TResponse>,
-  AxiosError<TError, void>,
-  void
+  HookException<TError>,
+  Payload
 >;

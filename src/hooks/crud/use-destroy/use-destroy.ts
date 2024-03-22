@@ -4,7 +4,13 @@ import { useFlexibleConsumer } from "../../utils";
 
 import type { AxiosResponse } from "axios";
 import type { Endpoint } from "../../../types";
-import type { UseDestroyOptions, UseDestroyResult } from "./types";
+
+import type {
+  UseDestroyOptions,
+  UseDestroyResult,
+  HookException,
+  Payload,
+} from "./types";
 
 export const useDestroy = <
   TResponse = unknown,
@@ -22,7 +28,7 @@ export const useDestroy = <
 
     mutationFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
           safeUrl(url),
           { ...axios, method: "delete" }
         )
@@ -31,6 +37,9 @@ export const useDestroy = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError>) => {
+          throw err;
+        }),
   });
 };

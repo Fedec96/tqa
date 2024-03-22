@@ -8,6 +8,7 @@ import type { Endpoint } from "../../../../types";
 import type {
   UseInfiniteCreateOptions,
   UseInfiniteCreateResult,
+  HookException,
 } from "./types";
 
 export const useInfiniteCreate = <
@@ -58,7 +59,10 @@ export const useInfiniteCreate = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError, TPayload>) => {
+          throw err;
+        }),
   });
 
   const aux = useInfiniteAux<TResponse>(infiniteQuery.data, lookup);

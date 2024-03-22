@@ -10,6 +10,12 @@ import type {
   DatalessAxiosRequestConfig,
 } from "../../../types";
 
+export type HookException<
+  TError,
+  TRequest extends ActiveRequest,
+  TPayload
+> = AxiosError<TError, PayloadGuard<TRequest, TPayload>>;
+
 export type ActiveRequest = "create" | "update" | "partialUpdate";
 
 type Method = Extract<
@@ -37,7 +43,7 @@ export interface UseCreateUpdateOptions<
 > extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseMutationOptions<
     RichResponse<TResponse>,
-    AxiosError<TError, PayloadGuard<TRequest, TPayload>>,
+    HookException<TError, TRequest, TPayload>,
     PayloadGuard<TRequest, TPayload>
   >;
 
@@ -53,6 +59,6 @@ export type UseCreateUpdateResult<
   TPayload
 > = UseMutationResult<
   RichResponse<TResponse>,
-  AxiosError<TError, PayloadGuard<TRequest, TPayload>>,
+  HookException<TError, TRequest, TPayload>,
   PayloadGuard<TRequest, TPayload>
 >;

@@ -9,6 +9,8 @@ import type { Endpoint } from "../../../../types";
 import type {
   UseCreationalRetrieveOptions,
   UseCreationalRetrieveResult,
+  HookException,
+  Payload,
 } from "./types";
 
 export const useCreationalRetrieve = <
@@ -27,7 +29,7 @@ export const useCreationalRetrieve = <
 
     mutationFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, void>, void>(
+        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
           safeUrl(url),
           { ...axios, method: "get" }
         )
@@ -36,6 +38,9 @@ export const useCreationalRetrieve = <
           status,
           statusText,
           headers,
-        })),
+        }))
+        .catch((err: HookException<TError>) => {
+          throw err;
+        }),
   });
 };

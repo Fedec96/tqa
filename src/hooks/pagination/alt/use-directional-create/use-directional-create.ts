@@ -8,7 +8,7 @@ import type { Endpoint } from "../../../../types";
 import {
   UseDirectionalCreateOptions,
   UseDirectionalCreateResult,
-  HookException,
+  DirectionalCreateException,
 } from "./types";
 
 export const useDirectionalCreate = <
@@ -68,7 +68,7 @@ export const useDirectionalCreate = <
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError, TPayload>) => {
+        .catch((err: DirectionalCreateException<TError, TPayload>) => {
           throw err;
         }),
   });

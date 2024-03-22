@@ -13,7 +13,10 @@ import type {
   DirectionalAttributes,
 } from "../../../../types";
 
-export type HookException<TError, TPayload> = AxiosError<TError, TPayload>;
+export type DirectionalCreateException<TError, TPayload> = AxiosError<
+  TError,
+  TPayload
+>;
 
 export type UseDirectionalCreateOptions<TResponse, TPayload, TParams, TError> =
   AltPaginatorConfig<TPayload, TParams> &
@@ -23,7 +26,7 @@ export type UseDirectionalCreateOptions<TResponse, TPayload, TParams, TError> =
     DirectionalControls<TResponse> & {
       reactQuery: FunctionlessUseQueryOptions<
         RichResponse<TResponse>,
-        HookException<TError, TPayload>
+        DirectionalCreateException<TError, TPayload>
       >;
     };
 
@@ -34,5 +37,8 @@ export type UseDirectionalCreateFactory<TResponse, TPayload, TParams, TError> =
   >;
 
 export type UseDirectionalCreateResult<TResponse, TPayload, TError> =
-  UseQueryResult<RichResponse<TResponse>, HookException<TError, TPayload>> &
+  UseQueryResult<
+    RichResponse<TResponse>,
+    DirectionalCreateException<TError, TPayload>
+  > &
     DirectionalAttributes;

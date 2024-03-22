@@ -9,17 +9,23 @@ import type {
   AnylessAxiosRequestConfig,
 } from "../../../../types";
 
-export type HookException<TError, TPayload> = AxiosError<TError, TPayload>;
+export type RetrievalCreateException<TError, TPayload> = AxiosError<
+  TError,
+  TPayload
+>;
 
 export interface UseRetrievalCreateOptions<TResponse, TPayload, TParams, TError>
   extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseQueryOptions<
     RichResponse<TResponse>,
-    HookException<TError, TPayload>
+    RetrievalCreateException<TError, TPayload>
   >;
 
   axios?: Methodless<AnylessAxiosRequestConfig<TPayload, TParams>>;
 }
 
 export type UseRetrievalCreateResult<TResponse, TPayload, TError> =
-  UseQueryResult<RichResponse<TResponse>, HookException<TError, TPayload>>;
+  UseQueryResult<
+    RichResponse<TResponse>,
+    RetrievalCreateException<TError, TPayload>
+  >;

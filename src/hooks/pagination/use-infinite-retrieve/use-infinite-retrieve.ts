@@ -8,8 +8,8 @@ import type { Endpoint } from "../../../types";
 import type {
   UseInfiniteRetrieveOptions,
   UseInfiniteRetrieveResult,
-  HookException,
-  Payload,
+  InfiniteRetrieveException,
+  InfiniteRetrievePayload,
 } from "./types";
 
 export const useInfiniteRetrieve = <
@@ -36,31 +36,32 @@ export const useInfiniteRetrieve = <
 
     queryFn: ({ pageParam }) =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
-          safeUrl(url),
-          {
-            ...axios,
-            method: "get",
+        .instance<
+          TResponse,
+          AxiosResponse<TResponse, InfiniteRetrievePayload>,
+          InfiniteRetrievePayload
+        >(safeUrl(url), {
+          ...axios,
+          method: "get",
 
-            params: {
-              ...axios?.params,
-              [rest.config.paginator.limitParam]: limit,
+          params: {
+            ...axios?.params,
+            [rest.config.paginator.limitParam]: limit,
 
-              ...(((rest.config.paginator.sendZeroOffset &&
-                typeof pageParam === "number") ||
-                (!rest.config.paginator.sendZeroOffset && pageParam)) && {
-                [rest.config.paginator.offsetParam]: pageParam,
-              }),
-            },
-          }
-        )
+            ...(((rest.config.paginator.sendZeroOffset &&
+              typeof pageParam === "number") ||
+              (!rest.config.paginator.sendZeroOffset && pageParam)) && {
+              [rest.config.paginator.offsetParam]: pageParam,
+            }),
+          },
+        })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError>) => {
+        .catch((err: InfiniteRetrieveException<TError>) => {
           throw err;
         }),
   });

@@ -10,7 +10,7 @@ import type {
   DatalessAxiosRequestConfig,
 } from "../../../types";
 
-export type HookException<
+export type CreateUpdateException<
   TError,
   TRequest extends ActiveRequest,
   TPayload
@@ -43,7 +43,7 @@ export interface UseCreateUpdateOptions<
 > extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseMutationOptions<
     RichResponse<TResponse>,
-    HookException<TError, TRequest, TPayload>,
+    CreateUpdateException<TError, TRequest, TPayload>,
     PayloadGuard<TRequest, TPayload>
   >;
 
@@ -59,6 +59,6 @@ export type UseCreateUpdateResult<
   TPayload
 > = UseMutationResult<
   RichResponse<TResponse>,
-  HookException<TError, TRequest, TPayload>,
+  CreateUpdateException<TError, TRequest, TPayload>,
   PayloadGuard<TRequest, TPayload>
 >;

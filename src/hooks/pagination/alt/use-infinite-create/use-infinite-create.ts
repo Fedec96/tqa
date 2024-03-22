@@ -8,7 +8,7 @@ import type { Endpoint } from "../../../../types";
 import type {
   UseInfiniteCreateOptions,
   UseInfiniteCreateResult,
-  HookException,
+  InfiniteCreateException,
 } from "./types";
 
 export const useInfiniteCreate = <
@@ -60,7 +60,7 @@ export const useInfiniteCreate = <
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError, TPayload>) => {
+        .catch((err: InfiniteCreateException<TError, TPayload>) => {
           throw err;
         }),
   });

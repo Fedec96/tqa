@@ -8,8 +8,8 @@ import type { Endpoint } from "../../../types";
 import type {
   UseDestroyOptions,
   UseDestroyResult,
-  HookException,
-  Payload,
+  DestroyException,
+  DestroyPayload,
 } from "./types";
 
 export const useDestroy = <
@@ -28,17 +28,18 @@ export const useDestroy = <
 
     mutationFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
-          safeUrl(url),
-          { ...axios, method: "delete" }
-        )
+        .instance<
+          TResponse,
+          AxiosResponse<TResponse, DestroyPayload>,
+          DestroyPayload
+        >(safeUrl(url), { ...axios, method: "delete" })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError>) => {
+        .catch((err: DestroyException<TError>) => {
           throw err;
         }),
   });

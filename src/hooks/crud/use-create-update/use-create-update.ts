@@ -10,7 +10,7 @@ import type {
   PayloadGuard,
   UseCreateUpdateOptions,
   UseCreateUpdateResult,
-  HookException,
+  CreateUpdateException,
 } from "./types";
 
 export const useCreateUpdate = <
@@ -42,7 +42,7 @@ export const useCreateUpdate = <
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError, TRequest, TPayload>) => {
+        .catch((err: CreateUpdateException<TError, TRequest, TPayload>) => {
           throw err;
         }),
   });

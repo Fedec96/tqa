@@ -9,8 +9,8 @@ import type { Endpoint } from "../../../../types";
 import type {
   UseCreationalRetrieveOptions,
   UseCreationalRetrieveResult,
-  HookException,
-  Payload,
+  CreationalRetrieveException,
+  CreationalRetrievePayload,
 } from "./types";
 
 export const useCreationalRetrieve = <
@@ -29,17 +29,18 @@ export const useCreationalRetrieve = <
 
     mutationFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
-          safeUrl(url),
-          { ...axios, method: "get" }
-        )
+        .instance<
+          TResponse,
+          AxiosResponse<TResponse, CreationalRetrievePayload>,
+          CreationalRetrievePayload
+        >(safeUrl(url), { ...axios, method: "get" })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError>) => {
+        .catch((err: CreationalRetrieveException<TError>) => {
           throw err;
         }),
   });

@@ -8,8 +8,8 @@ import type { Endpoint } from "../../../types";
 import {
   UseDirectionalRetrieveOptions,
   UseDirectionalRetrieveResult,
-  HookException,
-  Payload,
+  DirectionalRetrieveException,
+  DirectionalRetrievePayload,
 } from "./types";
 
 export const useDirectionalRetrieve = <
@@ -45,30 +45,31 @@ export const useDirectionalRetrieve = <
 
     queryFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
-          safeUrl(url),
-          {
-            ...axios,
-            method: "get",
+        .instance<
+          TResponse,
+          AxiosResponse<TResponse, DirectionalRetrievePayload>,
+          DirectionalRetrievePayload
+        >(safeUrl(url), {
+          ...axios,
+          method: "get",
 
-            params: {
-              ...axios?.params,
-              [rest.config.paginator.limitParam]: limit,
+          params: {
+            ...axios?.params,
+            [rest.config.paginator.limitParam]: limit,
 
-              ...((rest.config.paginator.sendZeroOffset ||
-                (!rest.config.paginator.sendZeroOffset && offset)) && {
-                [rest.config.paginator.offsetParam]: offset,
-              }),
-            },
-          }
-        )
+            ...((rest.config.paginator.sendZeroOffset ||
+              (!rest.config.paginator.sendZeroOffset && offset)) && {
+              [rest.config.paginator.offsetParam]: offset,
+            }),
+          },
+        })
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError>) => {
+        .catch((err: DirectionalRetrieveException<TError>) => {
           throw err;
         }),
   });

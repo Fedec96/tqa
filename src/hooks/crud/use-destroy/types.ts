@@ -9,15 +9,15 @@ import type {
   DatalessAxiosRequestConfig,
 } from "../../../types";
 
-export type Payload = void;
-export type HookException<TError> = AxiosError<TError, Payload>;
+export type DestroyPayload = void;
+export type DestroyException<TError> = AxiosError<TError, DestroyPayload>;
 
 export interface UseDestroyOptions<TResponse, TParams, TError>
   extends FlexibleConsumerConfig {
   reactQuery: FunctionlessUseMutationOptions<
     RichResponse<TResponse>,
-    HookException<TError>,
-    Payload
+    DestroyException<TError>,
+    DestroyPayload
   >;
 
   axios?: Methodless<DatalessAxiosRequestConfig<TParams>>;
@@ -25,6 +25,6 @@ export interface UseDestroyOptions<TResponse, TParams, TError>
 
 export type UseDestroyResult<TResponse, TError> = UseMutationResult<
   RichResponse<TResponse>,
-  HookException<TError>,
-  Payload
+  DestroyException<TError>,
+  DestroyPayload
 >;

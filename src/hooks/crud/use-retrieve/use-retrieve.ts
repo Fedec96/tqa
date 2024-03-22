@@ -9,8 +9,8 @@ import type {
   PassiveRequest,
   UseRetrieveOptions,
   UseRetrieveResult,
-  HookException,
-  Payload,
+  RetrieveException,
+  RetrievePayload,
 } from "./types";
 
 export const useRetrieve = <
@@ -30,17 +30,18 @@ export const useRetrieve = <
 
     queryFn: () =>
       rest
-        .instance<TResponse, AxiosResponse<TResponse, Payload>, Payload>(
-          safeUrl(url),
-          axios
-        )
+        .instance<
+          TResponse,
+          AxiosResponse<TResponse, RetrievePayload>,
+          RetrievePayload
+        >(safeUrl(url), axios)
         .then(({ data: response, status, statusText, headers }) => ({
           response,
           status,
           statusText,
           headers,
         }))
-        .catch((err: HookException<TError>) => {
+        .catch((err: RetrieveException<TError>) => {
           throw err;
         }),
   });

@@ -15,10 +15,9 @@ import type {
 
 export type DirectionalRetrievePayload = void;
 
-export type DirectionalRetrieveException<TError> = AxiosError<
-  TError,
-  DirectionalRetrievePayload
->;
+export type DirectionalRetrieveException<TError> =
+  | Error
+  | AxiosError<TError, DirectionalRetrievePayload>;
 
 export type UseDirectionalRetrieveOptions<TResponse, TParams, TError> =
   BasePaginatorConfig<TParams> &

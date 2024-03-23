@@ -18,10 +18,9 @@ import type {
 
 export type InfiniteRetrievePayload = void;
 
-export type InfiniteRetrieveException<TError> = AxiosError<
-  TError,
-  InfiniteRetrievePayload
->;
+export type InfiniteRetrieveException<TError> =
+  | Error
+  | AxiosError<TError, InfiniteRetrievePayload>;
 
 export interface UseInfiniteRetrieveOptions<TResponse, TParams, TError>
   extends BasePaginatorConfig<TParams>,

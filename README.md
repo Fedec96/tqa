@@ -109,10 +109,10 @@ Hooks designed for requests with a payload accept an additional generic:
 
 When the query/mutation fails, the error is raised by Axios:
 
-| Source    | Type                           |
-| --------- | ------------------------------ |
-| Queries   | `AxiosError<TError, void>`     |
-| Mutations | `AxiosError<TError, TPayload>` |
+| Source    | Type                                    |
+| --------- | --------------------------------------- |
+| Queries   | `Error \| AxiosError<TError, void>`     |
+| Mutations | `Error \| AxiosError<TError, TPayload>` |
 
 ### Data
 

@@ -9,10 +9,9 @@ import type {
   AnylessAxiosRequestConfig,
 } from "../../../../types";
 
-export type RetrievalCreateException<TError, TPayload> = AxiosError<
-  TError,
-  TPayload
->;
+export type RetrievalCreateException<TError, TPayload> =
+  | Error
+  | AxiosError<TError, TPayload>;
 
 export interface UseRetrievalCreateOptions<TResponse, TPayload, TParams, TError>
   extends FlexibleConsumerConfig {

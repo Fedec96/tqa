@@ -13,10 +13,9 @@ import type {
   DirectionalAttributes,
 } from "../../../../types";
 
-export type DirectionalCreateException<TError, TPayload> = AxiosError<
-  TError,
-  TPayload
->;
+export type DirectionalCreateException<TError, TPayload> =
+  | Error
+  | AxiosError<TError, TPayload>;
 
 export type UseDirectionalCreateOptions<TResponse, TPayload, TParams, TError> =
   AltPaginatorConfig<TPayload, TParams> &

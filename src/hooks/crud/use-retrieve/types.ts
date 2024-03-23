@@ -10,7 +10,11 @@ import type {
 } from "../../../types";
 
 export type RetrievePayload = void;
-export type RetrieveException<TError> = AxiosError<TError, RetrievePayload>;
+
+export type RetrieveException<TError> =
+  | Error
+  | AxiosError<TError, RetrievePayload>;
+
 export type PassiveRequest = "retrieve" | "status";
 type Method = Extract<BaseMethod, "get" | "GET" | "head" | "HEAD">;
 

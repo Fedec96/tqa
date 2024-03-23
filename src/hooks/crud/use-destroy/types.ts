@@ -10,7 +10,10 @@ import type {
 } from "../../../types";
 
 export type DestroyPayload = void;
-export type DestroyException<TError> = AxiosError<TError, DestroyPayload>;
+
+export type DestroyException<TError> =
+  | Error
+  | AxiosError<TError, DestroyPayload>;
 
 export interface UseDestroyOptions<TResponse, TParams, TError>
   extends FlexibleConsumerConfig {

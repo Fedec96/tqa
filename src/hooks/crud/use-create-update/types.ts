@@ -14,7 +14,7 @@ export type CreateUpdateException<
   TError,
   TRequest extends ActiveRequest,
   TPayload
-> = AxiosError<TError, PayloadGuard<TRequest, TPayload>>;
+> = Error | AxiosError<TError, PayloadGuard<TRequest, TPayload>>;
 
 export type ActiveRequest = "create" | "update" | "partialUpdate";
 

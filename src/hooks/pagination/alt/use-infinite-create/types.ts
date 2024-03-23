@@ -16,10 +16,9 @@ import type {
   RootInfiniteFactoryKeys,
 } from "../../../../types";
 
-export type InfiniteCreateException<TError, TPayload> = AxiosError<
-  TError,
-  TPayload
->;
+export type InfiniteCreateException<TError, TPayload> =
+  | Error
+  | AxiosError<TError, TPayload>;
 
 export interface UseInfiniteCreateOptions<TResponse, TPayload, TParams, TError>
   extends AltPaginatorConfig<TPayload, TParams>,

@@ -11,10 +11,9 @@ import type {
 
 export type CreationalRetrievePayload = void;
 
-export type CreationalRetrieveException<TError> = AxiosError<
-  TError,
-  CreationalRetrievePayload
->;
+export type CreationalRetrieveException<TError> =
+  | Error
+  | AxiosError<TError, CreationalRetrievePayload>;
 
 export interface UseCreationalRetrieveOptions<TResponse, TParams, TError>
   extends FlexibleConsumerConfig {
